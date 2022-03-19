@@ -1,12 +1,16 @@
 import React, {useRef, useState, useEffect, useContext} from 'react'
-import {AuthContext} from './context/AuthProvider'
-import axios from './api/axios';
-const LOGIN_URL = '/auth';
 
 
+import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material'
+//import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 export default function Login() {
-  const {setAuth} = useContext(AuthContext);
 
+  //form paper style
+  const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
+
+  //avatarStyle
+  const avatarStyle={backgroundColor: '#00BFFF'};
+  
   const userRef = useRef();
   const errRef = useRef();
 
@@ -41,38 +45,50 @@ export default function Login() {
         </p>
       </section>
     ): (
-
-      <section>
+      <Grid>
+        <Paper elevation={10} style={paperStyle}>
+          <Grid align='center'>
+          <Avatar style={avatarStyle}>GC</Avatar>
         <p ref={errRef} className={errMsg ? "errMsg" : 
       "offscreen"} aria-live="assertive">{errMsg}</p>
-      <h1>Sign In</h1>
-      <form onSubmit={handleSubmit} method="get">
-        <label htmlFor="userName">Nombre de usuario</label>
-        <input 
+      <h2>Genesys Core</h2>
+          </Grid>
+          <FormControl onSubmit={handleSubmit} method="get" fullWidth>
+        <TextField 
           type="text" 
+          label='Usuario'
           id="userName"
           ref={userRef}
           autoComplete="off"
+          placeholder='Introducir el nombre de usuario'
           onChange={(e) => setUser(e.target.value)}
           value={user} 
-          required
+          variant='standard'
+          fullWidth 
+          
           />
-
-        <label htmlFor="password">Contraseña</label>
-        <input 
+          <br/>
+      
+        <TextField 
           type="password" 
+          label='Contraseña'
           id="password"
           onChange={(e) => setPwd(e.target.value)}
           value={pwd} 
-          required
+          fullWidth
+          variant='standard'
+          
           /> 
-          <button>Iniciar Sesion</button>
-      </form>
+         <br/>
+          <Button type='submit' color='primary' variant='contained'>Iniciar Sesion</Button>
+      </FormControl>
       <p>¿Necesita una cuenta?</p>
         <span className="line">
           <a href="#">Registrarse</a>
         </span>
-      </section>
+        </Paper>
+        
+      </Grid>   
     )}</>
   )
 }
