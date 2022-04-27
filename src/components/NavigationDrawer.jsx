@@ -4,7 +4,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import ListItemAvatar  from '@mui/material/ListItemAvatar';
 import GroupIcon from '@mui/icons-material/Group';
 import HouseIcon from '@mui/icons-material/House';
@@ -20,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Container } from '@mui/material';
 
 export default function NavigationDrawer(props) {
   const drawerWidth = 240;
@@ -61,7 +61,7 @@ export default function NavigationDrawer(props) {
   
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'right',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -83,20 +83,30 @@ export default function NavigationDrawer(props) {
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: 'none' }) }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Genesys Core
-            </Typography>
-          </Toolbar>
+          <Container maxWidth="xl">
+            <Toolbar>
+              <IconButton 
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{ mr: 2, ...(open && { display: 'none'}) }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap component="div">
+                Genesys Core
+                </Typography>
+              <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}}>
+                
+              </Typography>
+              <div>
+                <Typography variant="h6">
+                Bienvenido, John
+                </Typography>
+              </div>
+            </Toolbar>
+          </Container>
         </AppBar>
         <Drawer
           sx={{
