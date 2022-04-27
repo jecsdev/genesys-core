@@ -80,7 +80,7 @@ export default function NavigationDrawer(props) {
     };
   
     return (
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex'}}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
           <Toolbar>
@@ -94,7 +94,7 @@ export default function NavigationDrawer(props) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Bienvenido
+              Genesys Core
             </Typography>
           </Toolbar>
         </AppBar>
@@ -120,17 +120,14 @@ export default function NavigationDrawer(props) {
           <List>
           <ListItem button >
                 <ListItemAvatar>
-                  <Avatar>
+
                     <HouseIcon/>
-                  </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Inicio"/>
               </ListItem>
               <ListItem button >
                 <ListItemAvatar>
-                  <Avatar>
                     <WarehouseIcon/>
-                  </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Inventario"/>
               </ListItem>
@@ -139,17 +136,13 @@ export default function NavigationDrawer(props) {
           <List>
               <ListItem button >
                 <ListItemAvatar>
-                  <Avatar>
                     <GroupIcon/>
-                  </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Usuarios"/>
               </ListItem>
               <ListItem button >
                 <ListItemAvatar>
-                  <Avatar>
                     <SettingsIcon/>
-                  </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Configuracion"/>
               </ListItem>
