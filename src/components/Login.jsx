@@ -41,7 +41,7 @@ export default function Login() {
         <h1>Your are logged in!</h1>
         <br/>
         <p>
-          <a href="#">Go to home</a>
+          <a>Go to home</a>
         </p>
       </section>
     ): (
@@ -84,7 +84,7 @@ export default function Login() {
       </FormControl>
       <p>¿Necesita una cuenta?</p>
         <span className="line">
-          <a href="#">Registrarse</a>
+          <a>Registrarse</a>
         </span>
         </Paper>
         

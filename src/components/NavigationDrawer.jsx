@@ -4,6 +4,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent  from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Grid from '@mui/material/Grid';
 import ListItemAvatar  from '@mui/material/ListItemAvatar';
 import GroupIcon from '@mui/icons-material/Group';
 import HouseIcon from '@mui/icons-material/House';
@@ -23,6 +28,14 @@ import { Container } from '@mui/material';
 
 export default function NavigationDrawer(props) {
   const drawerWidth = 240;
+  const bull = (
+    <Box
+      component="span"
+      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    >
+      •
+    </Box>
+  );
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
       flexGrow: 1,
@@ -83,14 +96,13 @@ export default function NavigationDrawer(props) {
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
         <AppBar position="fixed" open={open}>
-          <Container maxWidth="xl">
             <Toolbar>
               <IconButton 
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
-                sx={{ mr: 2, ...(open && { display: 'none'}) }}
+                sx={{ mr: 2, ...(open && { display: 'flex'}) }}
               >
                 <MenuIcon />
               </IconButton>
@@ -106,7 +118,6 @@ export default function NavigationDrawer(props) {
                 </Typography>
               </div>
             </Toolbar>
-          </Container>
         </AppBar>
         <Drawer
           sx={{
@@ -130,7 +141,6 @@ export default function NavigationDrawer(props) {
           <List>
           <ListItem button >
                 <ListItemAvatar>
-
                     <HouseIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Inicio"/>
@@ -160,8 +170,39 @@ export default function NavigationDrawer(props) {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-         
-        </Main>
-      </Box>
+            <Grid container spacing={{ xs: 4, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {Array.from(Array(12)).map((_, index) => (
+              <Grid item xs={2} sm={4} md={2} key={index}>
+                <Card sx={{ maxWidth: 250 }}>
+                  <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                      Word of the Day
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      be{bull}nev{bull}o{bull}lent
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      adjective
+                    </Typography>
+                    <Typography variant="body2">
+                      well meaning and kindly.
+                      <br />
+                      {'"a benevolent smile"'}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Learn More</Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+        </Grid>
+          
+    
+      </Main>
+        
+    </Box>
+      
+      
     );
 }
