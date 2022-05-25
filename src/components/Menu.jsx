@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Outlet, useNavigate} from 'react-router-dom'
 
 
 export default function Menu(props) {
@@ -72,7 +73,7 @@ export default function Menu(props) {
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }));
-  
+    const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
   
@@ -130,13 +131,17 @@ export default function Menu(props) {
           </DrawerHeader>
           <Divider />
           <List>
-          <ListItem button >
+          <ListItem button onClick={()=> {
+            navigate("/")
+          }} >
                 <ListItemAvatar>
                     <HouseIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Inicio"/>
-              </ListItem>
-              <ListItem button >
+          </ListItem>
+              <ListItem button onClick={()=> {
+                navigate("/inventory")
+              }}>
                 <ListItemAvatar>
                     <WarehouseIcon/>
                 </ListItemAvatar>
@@ -162,9 +167,7 @@ export default function Menu(props) {
         <Main open={open}>
           <DrawerHeader />
       </Main>
-        
+      <Outlet/>
     </Box>
-      
-      
     );
 }

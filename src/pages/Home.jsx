@@ -3,7 +3,7 @@ import React from 'react'
 export default function Home() {
   return (
     <div>
-      <h1>Bienvenido a Genesys Core</h1>
+      <h2>Bienvenido a Genesys Core</h2>
     </div>
   )
 }
