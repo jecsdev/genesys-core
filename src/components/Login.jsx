@@ -3,7 +3,7 @@ import React, {useRef, useState, useEffect} from 'react'
 
 import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material'
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-export default function Login() {
+ function Login() {
 
   //form paper style
   const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
@@ -84,7 +84,7 @@ export default function Login() {
       </FormControl>
       <p>¿Necesita una cuenta?</p>
         <span className="line">
-          <a>Registrarse</a>
+          <p>Registrarse</p>
         </span>
         </Paper>
         
@@ -92,3 +92,4 @@ export default function Login() {
     )}</>
   )
 }
+export default Login;

@@ -22,7 +22,7 @@ import Typography from '@mui/material/Typography';
 import { Outlet, useNavigate} from 'react-router-dom'
 
 
-export default function Menu(props) {
+ function Menu(props) {
   const drawerWidth = 240;
   
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -88,7 +88,7 @@ export default function Menu(props) {
     return (
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={open} sx={{background: '#3f51b5'}}>
             <Toolbar>
               <IconButton 
                 color="inherit"
@@ -171,3 +171,4 @@ export default function Menu(props) {
     </Box>
     );
 }
+export default Menu;

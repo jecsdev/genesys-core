@@ -6,6 +6,8 @@ import Inventory from './pages/Inventory';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Footer from './components/Footer';
+import Qrscanner from './components/Qrscanner';
 
 
 function App() {
@@ -16,8 +18,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/inventory" element={<Inventory/>}/>
+            <Route path ="/qrscanner" element ={<Qrscanner/>}/>
             <Route path="*" element={<NotFound/>}/>
           </Routes>
+          <Footer/>
       </BrowserRouter>
       
     </div>

@@ -8,8 +8,8 @@ const columns = [
   { field: 'createdDate', headerName: 'Fecha de creacion', width: 150 },
   {
     field: 'available',
-    headerName: 'Disponible',
-    width: 90,
+    headerName: 'Disponibilidad',
+    width: 130,
   },
 ];
 
@@ -23,9 +23,10 @@ const rows = [
   { id: 7, articleName: 'Vestido de lino', createdDate: '25-05-2022 03:20 PM', available: 'Si' },
   { id: 8, articleName: 'Sarten liso', createdDate: '25-05-2022 03:20 PM', available: 'No' },
   { id: 9, articleName: 'Lata de maiz', createdDate: '25-05-2022 03:20 PM', available: 'Si' },
+  { id: 10, articleName: 'Lata de gandules', createdDate: '25-05-2022 03:20 PM', available: 'Si' }
 ];
 
-export default function Table() {
+ function Table() {
   return (
     <div style={{ height: 400, width: '100%', padding: '20px', marginLeft: 'auto', marginRight: 'auto'}}>
       <DataGrid
@@ -38,3 +39,4 @@ export default function Table() {
     </div>
   );
 }
+export default Table;
