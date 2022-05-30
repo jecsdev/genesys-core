@@ -8,7 +8,7 @@ import { QrReader } from 'react-qr-reader';
 function Qrscanner() {
     const classes = useStyles();
     //const qrRef = useRef(null);
-    const [scanResultWebCam, setScanResultWebcam] = useState('')
+    const [scanResultWebCam, setScanResultWebCam] =  useState('Not result');
 
 /*     const onScanFile = () =>{
          qrRef.current.openImageDialog();   
@@ -20,7 +20,7 @@ function Qrscanner() {
 
     const handleScanWebCam = (result) => {
         if(result) {
-            setScanResultWebcam(result)
+            setScanResultWebCam(result.text);
         }
     }
     return (
@@ -34,7 +34,7 @@ function Qrscanner() {
                                 delay={300}
                                 style={{ width: '100%' }}
                                 onError={handleErrorWebCam}
-                                onScan={handleScanWebCam}
+                                onResult={handleScanWebCam}
                             />
                             <h3>Información botenida por el código QR: {scanResultWebCam}</h3>
                         </Grid>
