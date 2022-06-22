@@ -8,7 +8,7 @@ import { QrReader } from 'react-qr-reader';
 function Qrscanner() {
     const classes = useStyles();
     //const qrRef = useRef(null);
-    const [scanResultWebCam, setScanResultWebCam] =  useState('Not result');
+    const [scanResultWebCam, setScanResultWebCam] =  useState('');
 
 /*     const onScanFile = () =>{
          qrRef.current.openImageDialog();   
