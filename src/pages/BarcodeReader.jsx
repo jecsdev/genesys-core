@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import {
     Container, Card, CardContent, Grid} from '@mui/material'
     import { makeStyles } from '@mui/styles';
-import { QrReader } from 'react-qr-reader';
+import {BarcodeScannerComponent} from "react-qr-barcode-scanner";
 
-
-function Qrscanner() {
+function BarcodeReader() {
     const classes = useStyles();
     //const qrRef = useRef(null);
-    const [scanResultWebCam, setScanResultWebCam] =  useState('Not result');
+    const [scanResultWebCam, setScanResultWebCam] =  useState('');
 
 /*     const onScanFile = () =>{
          qrRef.current.openImageDialog();   
@@ -30,14 +29,16 @@ function Qrscanner() {
                 <CardContent>
                     <Grid container spacing={2}>
                         <Grid item x1={4} lg={4} md={6} sm={12} xs={12}>
-                            <QrReader
+                            <BarcodeScannerComponent
                                 delay={300}
                                 style={{ width: '100%' }}
                                 onError={handleErrorWebCam}
-                                onResult={handleScanWebCam}
+                                onUpdate={handleScanWebCam}
                             />
-                            <h3>Información botenida por el código QR: {scanResultWebCam}</h3>
                         </Grid>
+                    </Grid>
+                    <Grid container spacing={2}>
+                        
                     </Grid>
                 </CardContent>
             </Card>
@@ -59,4 +60,6 @@ const useStyles = makeStyles(() => ({
         padding: 20
     }
 }));
-export default Qrscanner;
+
+
+export default BarcodeReader

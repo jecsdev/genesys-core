@@ -7,7 +7,9 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
-import Qrscanner from './components/Qrscanner';
+import Qrscanner from './pages/Qrscanner';
+import BarcodeReader from './pages/BarcodeReader';
+
 
 
 function App() {
