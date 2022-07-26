@@ -3,7 +3,7 @@ import {
     Container, Card, CardContent, Grid} from '@mui/material'
     import { makeStyles } from '@mui/styles';
 import { QrReader } from 'react-qr-reader';
-
+import moment from 'moment'
 
 function Qrscanner() {
     const classes = useStyles();
@@ -14,7 +14,9 @@ function Qrscanner() {
          qrRef.current.openImageDialog();   
     } */
     
-    let getDate = useState('')
+    //let createdAt = moment().format("DD-MM-YYYY hh:mm:ss")
+
+    const [created, setCreated] = useState();
 
     const handleErrorWebCam = (error) => {
         console.log(error);
@@ -23,7 +25,7 @@ function Qrscanner() {
     const handleScanWebCam = (result) => {
         if(result) {
             setScanResultWebCam(result.text);
-            getDate = new Date().toLocaleString() + ""
+            setCreated(moment.format())
         }
     }
     return (
@@ -42,7 +44,7 @@ function Qrscanner() {
                         </Grid>
                         <Grid item x1={8} lg={4} md={6} sm={12} xs={12}>
                             <h3>Información botenida por el código QR: {scanResultWebCam}</h3>
-                            
+                            <h3>Fecha de creación: {created}</h3>
                         </Grid>
                     </Grid>
                         
