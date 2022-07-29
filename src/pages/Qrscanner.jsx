@@ -14,8 +14,7 @@ function Qrscanner() {
          qrRef.current.openImageDialog();   
     } */
     
-    //n
-   // let createdAt = moment().format("DD-MM-YYYY hh:mm:ss")
+    let createdAt = moment().format("DD-MM-YYYY hh:mm:ss")
 
     const [created, setCreated] = useState();
 
@@ -26,7 +25,7 @@ function Qrscanner() {
     const handleScanWebCam = (result) => {
         if(result) {
             setScanResultWebCam(result.text);
-            setCreated(moment.format())
+            setCreated(createdAt)
         }
     }
     return (
