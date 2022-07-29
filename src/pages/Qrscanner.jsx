@@ -14,7 +14,8 @@ function Qrscanner() {
          qrRef.current.openImageDialog();   
     } */
     
-    //let createdAt = moment().format("DD-MM-YYYY hh:mm:ss")
+    //n
+   // let createdAt = moment().format("DD-MM-YYYY hh:mm:ss")
 
     const [created, setCreated] = useState();
 

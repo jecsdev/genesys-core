@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer';
 import Qrscanner from './pages/Qrscanner';
+import Login from './pages/Login'
 
 
 
@@ -16,14 +17,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Menu/>
+      <Login/>
+         {/* <Menu/>
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/inventory" element={<Inventory/>}/>
             <Route path ="/qrscanner" element ={<Qrscanner/>}/>
             <Route path="*" element={<NotFound/>}/>
           </Routes>
-          <Footer/>
+          <Footer/> */}
       </BrowserRouter>
       
     </div>

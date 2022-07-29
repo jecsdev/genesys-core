@@ -5,14 +5,16 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
  function Login() {
 
+
   //form paper style
   const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
 
   //avatarStyle
-  const avatarStyle={backgroundColor: '#00BFFF'};
+  const avatarStyle={backgroundColor: '#3f51b5'};
   
   const userRef = useRef();
   const errRef = useRef();
+
 
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
@@ -80,7 +82,7 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
           
           /> 
          <br/>
-          <Button type='submit' color='primary' variant='contained'>Iniciar Sesion</Button>
+          <Button type='submit' style={{background: '#3f51b5'}} variant='contained'>Iniciar Sesion</Button>
       </FormControl>
       <p>¿Necesita una cuenta?</p>
         <span className="line">
@@ -91,5 +93,9 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
       </Grid>   
     )}</>
   )
-}
+} 
+
+
+
+
 export default Login;
