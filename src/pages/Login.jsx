@@ -1,7 +1,9 @@
 import React, {useRef, useState, useEffect} from 'react'
-
+import {useNavigate} from "react-router-dom"
+import AuthService from '../auth-services/auth-service';
 
 import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material'
+import authService from '../auth-services/auth-service';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
  function Login() {
 
@@ -15,9 +17,10 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
   const userRef = useRef();
   const errRef = useRef();
 
+  const navigate = useNavigate();
 
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [user, setuser] = useState('');
+  const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -27,26 +30,27 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
 
   useEffect(()=>{
     setErrMsg('');
-  }, [user, pwd])
+  }, [user, password])
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(user, pwd);
-    setUser('');
-    setPwd('');
-    setSuccess(true);
+    try {
+      await AuthService.login(user, password)
+      .then(() => {
+        navigate("/home");
+        window.location.reload();
+
+      }, 
+      (error) => {
+        console.log(error);
+      }
+      )
+    }catch(e){
+      console.log(e);
+    }
+  
   }
   return (
-
-    <>{success ? (
-      <section>
-        <h1>Your are logged in!</h1>
-        <br/>
-        <p>
-          <a>Go to home</a>
-        </p>
-      </section>
-    ): (
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
@@ -55,15 +59,15 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
       "offscreen"} aria-live="assertive">{errMsg}</p>
       <h2>Genesys Core</h2>
           </Grid>
-          <FormControl onSubmit={handleSubmit} method="get" fullWidth>
+          <FormControl onSubmit={handleLogin} method="get" fullWidth>
         <TextField 
           type="text" 
           label='Usuario'
-          id="userName"
+          id="user"
           ref={userRef}
           autoComplete="off"
           placeholder='Introducir el nombre de usuario'
-          onChange={(e) => setUser(e.target.value)}
+          onChange={(e) => setuser(e.target.value)}
           value={user} 
           variant='standard'
           fullWidth 
@@ -75,8 +79,8 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
           type="password" 
           label='Contraseña'
           id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={pwd} 
+          onChange={(e) => setPassword(e.target.value)}
+          value={password} 
           fullWidth
           variant='standard'
           
@@ -91,9 +95,8 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
         </Paper>
         
       </Grid>   
-    )}</>
-  )
-} 
+    )}
+
 
 
 
