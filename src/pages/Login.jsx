@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom"
 import AuthService from '../auth-services/auth-service';
 
 import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material'
-import authService from '../auth-services/auth-service';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
  function Login() {
 
@@ -22,7 +21,6 @@ import authService from '../auth-services/auth-service';
   const [user, setuser] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -35,7 +33,7 @@ import authService from '../auth-services/auth-service';
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await AuthService.login(user, password)
+      await AuthService.logIn(user, password)
       .then(() => {
         navigate("/home");
         window.location.reload();
@@ -59,7 +57,7 @@ import authService from '../auth-services/auth-service';
       "offscreen"} aria-live="assertive">{errMsg}</p>
       <h2>Genesys Core</h2>
           </Grid>
-          <FormControl onSubmit={handleLogin} method="get" fullWidth>
+            <form onSubmit={handleLogin}>
         <TextField 
           type="text" 
           label='Usuario'
@@ -86,8 +84,10 @@ import authService from '../auth-services/auth-service';
           
           /> 
          <br/>
+         <br/>
           <Button type='submit' style={{background: '#3f51b5'}} variant='contained'>Iniciar Sesion</Button>
-      </FormControl>
+          </form>
+    
       <p>¿Necesita una cuenta?</p>
         <span className="line">
           <p>Registrarse</p>
