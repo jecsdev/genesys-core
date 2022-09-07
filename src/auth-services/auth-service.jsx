@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "/auth";
+const API_URL = "https://localhost:7244/api/JwtToken";
 
-const signUp = (email, password) => {
+const signUp = (userName, password) => {
     return axios
     .post(API_URL, "/signup", {
-        email,
+        userName,
         password
     })
     .then((response) => {
@@ -17,18 +17,20 @@ const signUp = (email, password) => {
     });
 }
 
-const logIn = (email, password) => {
+const logIn = (userName, password) => {
     return axios
-    .post(API_URL + "/login", {
-        email,
+    .post(API_URL, {
+        userName,
         password
     })
     .then((response) => {
         if(response.data.accessToken){
             localStorage.setItem("user", JSON.stringify(response.data));
         }
+        console.log(response);
+        
         return response.data;
-    })
+    });
 }
 
 const logOut = () => {

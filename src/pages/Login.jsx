@@ -2,7 +2,7 @@ import React, {useRef, useState, useEffect} from 'react'
 import {useNavigate} from "react-router-dom"
 import AuthService from '../auth-services/auth-service';
 
-import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material'
+import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
  function Login() {
 
@@ -18,7 +18,7 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
 
   const navigate = useNavigate();
 
-  const [user, setuser] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
 
@@ -28,16 +28,16 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
 
   useEffect(()=>{
     setErrMsg('');
-  }, [user, password])
+  }, [userName, password])
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await AuthService.logIn(user, password)
+      await AuthService.logIn(userName, password)
       .then(() => {
-        navigate("/home");
-        window.location.reload();
-
+        //navigate("/home");
+        //window.location.reload();
+        
       }, 
       (error) => {
         console.log(error);
@@ -61,12 +61,12 @@ import {Avatar, Button, FormControl, Grid, Paper, TextField} from '@mui/material
         <TextField 
           type="text" 
           label='Usuario'
-          id="user"
+          id="userName"
           ref={userRef}
           autoComplete="off"
           placeholder='Introducir el nombre de usuario'
-          onChange={(e) => setuser(e.target.value)}
-          value={user} 
+          onChange={(e) => setUserName(e.target.value)}
+          value={userName} 
           variant='standard'
           fullWidth 
           
