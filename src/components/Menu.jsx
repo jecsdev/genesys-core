@@ -132,7 +132,7 @@ import { Outlet, useNavigate} from 'react-router-dom'
           <Divider />
           <List>
           <ListItem button onClick={()=> {
-            navigate("/")
+            navigate("/Home")
           }} >
                 <ListItemAvatar>
                     <HouseIcon/>
