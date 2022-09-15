@@ -1,31 +1,27 @@
-
 import './App.css';
 import React from 'react';
-import Menu from './components/Menu';
 import Inventory from './pages/Inventory';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Footer from './components/Footer';
+import Menu from './components/Menu';
 import Qrscanner from './pages/Qrscanner';
 import Login from './pages/Login'
-
-
-
-
+import ProtectedRoutes from './utils/ProtectedRoutes';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Login/>
-         {/* <Menu/>
           <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/inventory" element={<Inventory/>}/>
-            <Route path ="/qrscanner" element ={<Qrscanner/>}/>
-            <Route path="*" element={<NotFound/>}/>
+            <Route element={<ProtectedRoutes/>}> 
+              <Route path="/home" element={<Home/>}/>
+              <Route path="/inventory" element={<Inventory/>}/>
+              <Route path ="/qrscanner" element ={<Qrscanner/>}/>
+              <Route path="*" element={<NotFound/>}/>
+            </Route>
+            <Route index path="/login" element={<Login/>}/>
           </Routes>
-          <Footer/> */}
+          
       </BrowserRouter>
       
     </div>

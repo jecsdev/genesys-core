@@ -170,5 +170,6 @@ import { Outlet, useNavigate} from 'react-router-dom'
       <Outlet/>
     </Box>
     );
+    
 }
 export default Menu;

@@ -35,8 +35,8 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
     try {
       await AuthService.logIn(userName, password)
       .then(() => {
-        //navigate("/home");
-        //window.location.reload();
+        navigate("/home");
+        window.location.reload();
         
       }, 
       (error) => {
