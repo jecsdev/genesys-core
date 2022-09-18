@@ -1,0 +1,35 @@
+import React from 'react'
+import React from 'react'
+import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
+import {useNavigate} from "react-router-dom"
+function CreateProductCategory() {
+    const userRef = useRef();
+    const navigate = useNavigate();
+    const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
+  return (
+    <Grid>
+        <h2>Nueva categoría de producto</h2>
+        <Paper elevation={10} style={paperStyle}>
+            <Grid align='center'>
+            <TextField 
+          type="text" 
+          label='Categoría de producto'
+          id="userName"
+          ref={userRef}
+          autoComplete="off"
+          placeholder='Introducir el nombre de usuario'
+          onChange={(e) => setUserName(e.target.value)}
+          value={userName} 
+          variant='standard'
+          fullWidth 
+          
+          />
+          <br/>
+            </Grid>
+        </Paper>
+    </Grid>
+  )
+}
+
+export default CreateProductCategory
+

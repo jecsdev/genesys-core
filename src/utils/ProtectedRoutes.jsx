@@ -3,7 +3,8 @@ import AuthService from '../auth-services/auth-service';
 function ProtectedRoutes() {
     let auth = AuthService
   return (
-    auth.logIn ? <Outlet/>: <Navigate to="/login"/>
+    auth.getCurrentUser ? <Outlet/>: <Navigate to="/login"/>
+    
   )
 }
 
