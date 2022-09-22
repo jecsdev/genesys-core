@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import CategoryIcon from '@mui/icons-material/Category';
 import { Outlet, useNavigate} from 'react-router-dom'
 
 
@@ -146,6 +147,14 @@ import { Outlet, useNavigate} from 'react-router-dom'
                     <WarehouseIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Inventario"/>
+            </ListItem>
+            <ListItem button onClick={()=> {
+              navigate("/productcategories")
+            }}>
+              <ListItemAvatar>
+                <CategoryIcon/>
+              </ListItemAvatar>
+              <ListItemText primary="Categoría de productos"/>
             </ListItem>
           </List>
           <Divider />

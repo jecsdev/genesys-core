@@ -3,6 +3,7 @@ import {
     Container, Card, CardContent, Grid} from '@mui/material'
     import { makeStyles } from '@mui/styles';
 import { QrReader } from 'react-qr-reader';
+import Menu from '../components/Menu';
 import moment from 'moment'
 
 function Qrscanner() {
@@ -29,6 +30,8 @@ function Qrscanner() {
         }
     }
     return (
+        <Grid>
+             <Menu/>
         <Container className={classes.container}>
             <Card>
                 <h2 className={classes.title}>Escáner de código QR</h2>
@@ -47,13 +50,10 @@ function Qrscanner() {
                             <h3>Fecha de creación: {created}</h3>
                         </Grid>
                     </Grid>
-                        
-                    
-                    
-                   
                 </CardContent>
             </Card>
         </Container>
+        </Grid>
         );
 }
 
