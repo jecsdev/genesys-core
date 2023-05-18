@@ -14,7 +14,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
           <Routes>
-            <Route element={<ProtectedRoutes/>}> 
+            <Route path="/login" element={<Login />} />
+            <Route element={<ProtectedRoutes/>}>
                 <Route path="/home" element={<Home/>}/>
                 <Route path="/inventory" element={<Inventory/>}/>
                 <Route path="/productcategories" element={<ProductCategories/>}/>
@@ -22,9 +23,7 @@ function App() {
                 <Route path ="/qrscanner" element ={<Qrscanner/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Route>
-            <Route index path="/login" element={<Login/>}/>
           </Routes>
-          
       </BrowserRouter>
       
     </div>

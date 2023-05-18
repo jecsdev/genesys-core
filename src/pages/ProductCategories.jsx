@@ -37,7 +37,7 @@ function ProductCategories() {
       </div>
       <br/>
       <br/>
-      <Table/>
+     
     </div>
     
   )
