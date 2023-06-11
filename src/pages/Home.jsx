@@ -2,7 +2,7 @@ import React from 'react'
 import Menu from '../components/Menu'
  function Home() {
   return (
-    <div>
+    <div class="App">
       <Menu/>
       <h2>Bienvenido a Genesys Core</h2>
     </div>

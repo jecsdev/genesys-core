@@ -1,15 +1,9 @@
 import React from 'react'
-import {Avatar, IconButton,  Grid, Paper, TextField} from '@mui/material'
-import {useNavigate} from "react-router-dom"
-import Table from '../components/Table'
+import {IconButton} from '@mui/material'
 import Menu from '../components/Menu'
 import { makeStyles } from '@mui/styles'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 function ProductCategories() {
-
-    const navigate = useNavigate();
-    const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
-
     const styles = makeStyles(() => ({
       root: {
         "&:hover": {

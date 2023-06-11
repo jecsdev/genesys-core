@@ -1,9 +1,7 @@
-import {React, useRef, useState, useEffect} from 'react'
-import { Button,  Grid, Paper, TextField} from '@mui/material';
-import {useNavigate} from "react-router-dom";
+import {React, useRef, useState} from 'react'
+import {Grid, Paper, TextField} from '@mui/material';
 function CreateProductCategory() {
     const userRef = useRef();
-    const navigate = useNavigate();
     const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
     const [productCategory, setProductCategory] = useState('');
   return (

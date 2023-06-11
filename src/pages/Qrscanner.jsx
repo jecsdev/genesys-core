@@ -66,7 +66,7 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        background: '#3f51b5',
+        background: '#1d84b5',
         color: '#fff',
         padding: 20
     }

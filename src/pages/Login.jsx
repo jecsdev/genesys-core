@@ -8,7 +8,17 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
 
 
   //form paper style
-  const paperStyle={padding: 70, height:'50vh', width:280, margin:'100px auto'};
+  const paperStyle = {
+    padding: 70,
+    height: '50vh',
+    width: 280,
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
 
   //avatarStyle
   const avatarStyle={backgroundColor: '#3f51b5'};
@@ -49,13 +59,14 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
   
   }
   return (
+    <div class="container">
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
           <Avatar style={avatarStyle}>GC</Avatar>
         <p ref={errRef} className={errMsg ? "errMsg" : 
-      "offscreen"} aria-live="assertive">{errMsg}</p>
-      <h2>Genesys Core</h2>
+        "offscreen"} aria-live="assertive">{errMsg}</p>
+        <h2>Genesys Core</h2>
           </Grid>
             <form onSubmit={handleLogin}>
         <TextField 
@@ -88,13 +99,15 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
           <Button type='submit' style={{background: '#3f51b5'}} variant='contained'>Iniciar Sesion</Button>
           </form>
     
-      <p>¿Necesita una cuenta?</p>
-        <span className="line">
-          <p>Registrarse</p>
-        </span>
-        </Paper>
-        
-      </Grid>   
+            <p>¿Necesita una cuenta?</p>
+          <span className="line">
+            <p>Registrarse</p>
+          </span>
+          </Paper>
+          
+        </Grid>   
+      </div>
+     
     )}
 
 

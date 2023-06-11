@@ -20,10 +20,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CategoryIcon from '@mui/icons-material/Category';
+import logo from '../assets/logo.png';
 import { Outlet, useNavigate} from 'react-router-dom'
 
 
- function Menu(props) {
+ function Menu() {
   const drawerWidth = 240;
   
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -89,7 +90,7 @@ import { Outlet, useNavigate} from 'react-router-dom'
     return (
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
-        <AppBar position="fixed" open={open} sx={{background: '#3f51b5'}}>
+        <AppBar position="fixed" open={open} sx={{background: '#0c243c'}}>
             <Toolbar>
               <IconButton 
                 color="inherit"
@@ -101,7 +102,7 @@ import { Outlet, useNavigate} from 'react-router-dom'
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" noWrap component="div">
-                Genesys Core
+                Panel de control
                 </Typography>
               <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}}>
                 
@@ -126,6 +127,8 @@ import { Outlet, useNavigate} from 'react-router-dom'
           open={open}
         >
           <DrawerHeader>
+              <img src={logo} class="logo"/>
+              <h4 class="text-logo">Genesys Core</h4>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
