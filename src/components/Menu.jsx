@@ -14,7 +14,6 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import CategoryIcon from '@mui/icons-material/Category';
 import logo from '../assets/logo.png';
 import { Outlet, useNavigate} from 'react-router-dom'
+import { ListItemButton } from '@mui/material';
 
 
  function Menu() {
@@ -135,45 +135,45 @@ import { Outlet, useNavigate} from 'react-router-dom'
           </DrawerHeader>
           <Divider />
           <List>
-          <ListItem button onClick={()=> {
+          <ListItemButton button onClick={()=> {
             navigate("/Home")
           }} >
                 <ListItemAvatar>
                     <HouseIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Inicio"/>
-          </ListItem>
-              <ListItem button onClick={()=> {
+          </ListItemButton>
+              <ListItemButton onClick={()=> {
                 navigate("/inventory")
               }}>
                 <ListItemAvatar>
                     <WarehouseIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Inventario"/>
-            </ListItem>
-            <ListItem button onClick={()=> {
+            </ListItemButton>
+            <ListItemButton  onClick={()=> {
               navigate("/productcategories")
             }}>
               <ListItemAvatar>
                 <CategoryIcon/>
               </ListItemAvatar>
               <ListItemText primary="Categoría de productos"/>
-            </ListItem>
+            </ListItemButton>
           </List>
           <Divider />
           <List>
-              <ListItem button >
+              <ListItemButton  >
                 <ListItemAvatar>
                     <GroupIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Usuarios"/>
-              </ListItem>
-              <ListItem button >
+              </ListItemButton>
+              <ListItemButton  >
                 <ListItemAvatar>
                     <SettingsIcon/>
                 </ListItemAvatar>
                 <ListItemText primary="Configuracion"/>
-              </ListItem>
+              </ListItemButton>
           </List>
         </Drawer>
         <Main open={open}>
