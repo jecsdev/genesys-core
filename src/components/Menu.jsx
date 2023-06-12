@@ -90,7 +90,7 @@ import { Outlet, useNavigate} from 'react-router-dom'
     return (
       <Box sx={{ display: 'flex'}}>
         <CssBaseline />
-        <AppBar position="fixed" open={open} sx={{background: '#0c243c'}}>
+        <AppBar position="fixed" open={open} sx={{background: '#042e50'}}>
             <Toolbar>
               <IconButton 
                 color="inherit"
@@ -127,8 +127,8 @@ import { Outlet, useNavigate} from 'react-router-dom'
           open={open}
         >
           <DrawerHeader>
-              <img src={logo} class="logo"/>
-              <h4 class="text-logo">Genesys Core</h4>
+              <img src={logo} className="logo" alt="application logo"/>
+              <h4 className="text-logo">Genesys Core</h4>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>

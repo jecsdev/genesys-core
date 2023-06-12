@@ -1,38 +1,53 @@
 import React from 'react'
-import {IconButton} from '@mui/material'
-import Menu from '../components/Menu'
-import { makeStyles } from '@mui/styles'
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import { CardContent, Fab } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {Card} from '@mui/material';
+import Menu from '../components/Menu';
+import Table from '../components/CustomTable';
+import AddIcon from '@mui/icons-material/Add';
 function ProductCategories() {
-    const styles = makeStyles(() => ({
-      root: {
-        "&:hover": {
-          backgroundColor: "#3f51b5"
-        }, 
-        color: "#ffff", 
-        backgroundColor: "#3f51b5"
-      }, 
-      button: {
-        fontSize:"100px",
-        float: "right",
-        width: "100px",
-        height: "20px"
+
+  const navigate = useNavigate();
+  const theme = createTheme({
+    status: {
+      danger: '#e53e3e',
+    },
+    palette: {
+      primary: {
+        main: '#042e50',
+        darker: '#053e85',
+      },
+      neutral: {
+        main: '#64748B',
+        contrastText: '#fff',
+      },
+      secondary: {
+        main: "#4a7a9e"
+        
       }
-    }));
-    const btnStyles = styles();
+    },
+  });
+  
   return (
-    <div>
-      <Menu/>
-      <h3>Categoría de productos</h3>
-      <div >
-        <IconButton  className={btnStyles.button} color="primary" >
-          <AddBoxIcon className={btnStyles.button}/>
-        </IconButton>
-      </div>
-      <br/>
-      <br/>
-     
-    </div>
+    <div className="inventory-card">
+    <ThemeProvider theme={theme}>
+    <Menu/>
+    <h2>Categorría de productos</h2>
+    <Card>
+      <CardContent>
+      <Table/>
+        <div className="fab">
+          <Fab color="primary" aria-label="add" onClick={()=>{
+            navigate("/productcategories")
+          }} >
+          <AddIcon/>
+          </Fab>
+        </div>
+      </CardContent>
+    </Card>
+    </ThemeProvider>
+  </div>
     
   )
 }

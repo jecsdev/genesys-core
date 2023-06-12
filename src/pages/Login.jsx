@@ -21,7 +21,7 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
   };
 
   //avatarStyle
-  const avatarStyle={backgroundColor: '#3f51b5'};
+  const avatarStyle={backgroundColor: '#042e50'};
   
   const userRef = useRef();
   const errRef = useRef();
@@ -59,7 +59,7 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
   
   }
   return (
-    <div class="container">
+    <div className="container">
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
@@ -96,7 +96,7 @@ import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
           /> 
          <br/>
          <br/>
-          <Button type='submit' style={{background: '#3f51b5'}} variant='contained'>Iniciar Sesion</Button>
+          <Button type='submit' style={{background: '#042e50'}} variant='contained'>Iniciar Sesion</Button>
           </form>
     
             <p>¿Necesita una cuenta?</p>
