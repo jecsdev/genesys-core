@@ -4,29 +4,29 @@ import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
 const columns = [
   { field: 'id', headerName: 'Codigo', width: 'auto' },
   { field: 'articleName', headerName: 'Nombre de articulo', width: 'auto'  },
+  { field: 'description', headerName: 'Descripción', width: 'auto' },
   { field: 'createdDate', headerName: 'Fecha de creación', width: 'auto'  },
-  { field: 'available', headerName: 'Disponibilidad', width: 'auto'  },
-  { field: 'price', headerName: 'Precio', width: 'auto' }
+  { field: 'price', headerName: 'Precio', width: 'auto' },
+  { field: 'available', headerName: 'Disponibilidad', width: 'auto'  }
 ];
 
 const rows = [
-  { id: 1, articleName: 'Lamparas', createdDate: '25-05-2022 03:20 PM', available: 'Si', price: 200 },
-  { id: 2, articleName: 'Aceite', createdDate: '25-05-2022 03:20 PM', available: 'No', price: 500 },
-  { id: 3, articleName: 'Saco de arroz', createdDate: '25-05-2022 03:20 PM', available: 'No', price: 300 },
-  { id: 4, articleName: 'Lata de atun', createdDate: '25-05-2022 03:20 PM', available: 'Si', price: 110 },
-  { id: 5, articleName: 'Zapatos', createdDate: '25-05-2022 03:20 PM', available: 'No', price: 2000 },
-  { id: 6, articleName: 'Tenis deportivos', createdDate: '25-05-2022 03:20 PM', available: 'No', price: 600 },
-  { id: 7, articleName: 'Vestido de lino', createdDate: '25-05-2022 03:20 PM', available: 'Si', price: 1200 },
-  { id: 8, articleName: 'Sarten liso', createdDate: '25-05-2022 03:20 PM', available: 'No', price: 800 },
-  { id: 9, articleName: 'Lata de maiz', createdDate: '25-05-2022 03:20 PM', available: 'Si', price: 450 },
-  { id: 10, articleName: 'Lata de gandules', createdDate: '25-05-2022 03:20 PM', available: 'Si', price: 80 },
+  { id: 1, articleName: 'Lamparas',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 200, available: 'Si'},
+  { id: 2, articleName: 'Aceite',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 500, available: 'No'},
+  { id: 3, articleName: 'Saco de arroz',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 300, available: 'No'},
+  { id: 4, articleName: 'Lata de atun',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 110, available: 'Si'},
+  { id: 5, articleName: 'Zapatos',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 2000, available: 'No'},
+  { id: 6, articleName: 'Tenis deportivos',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 600, available: 'No'},
+  { id: 7, articleName: 'Vestido de lino',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 1200, available: 'Si'},
+  { id: 8, articleName: 'Sarten liso',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 800, available: 'No'},
+  { id: 9, articleName: 'Lata de maiz',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 450, available: 'Si'},
+  { id: 10, articleName: 'Lata de gandules',description: 'Descripcion del articulo', createdDate: '25-05-2022 03:20 PM',  price: 80, available: 'Si'}
 ];
 
 
 function CustomTable () {
   return (
-    <div className="table">
-      <Table>
+      <Table className="table">
         <TableHead>
           <TableRow>
             {columns.map((column) => (
@@ -46,8 +46,6 @@ function CustomTable () {
           ))}
         </TableBody>
       </Table>
-    </div>
-  
   );
 };
 

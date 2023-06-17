@@ -63,7 +63,8 @@
 }
 
 .inventory-card{
-  margin: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 .inventory-table{
   height: 50vh;

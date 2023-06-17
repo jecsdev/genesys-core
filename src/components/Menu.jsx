@@ -20,7 +20,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CategoryIcon from '@mui/icons-material/Category';
 import logo from '../assets/logo.png';
-import { Outlet, useNavigate} from 'react-router-dom'
+import { Outlet, useNavigate} from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
 
 
@@ -65,8 +65,6 @@ import { ListItemButton } from '@mui/material';
     }),
   }));
 
-  
-  
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'right',
@@ -75,113 +73,112 @@ import { ListItemButton } from '@mui/material';
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }));
-    const navigate = useNavigate();
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-  
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
-  
-    return (
-      <Box sx={{ display: 'flex'}}>
-        <CssBaseline />
-        <AppBar position="fixed" open={open} sx={{background: '#042e50'}}>
-            <Toolbar>
-              <IconButton 
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                sx={{ mr: 2, ...(open && { display: 'flex'}) }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" noWrap component="div">
-                Panel de control
-                </Typography>
-              <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}}>
-                
-              </Typography>
-              <div>
-                <Typography variant="h6">
-                Bienvenido, John
-                </Typography>
-              </div>
-            </Toolbar>
-        </AppBar>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader>
-              <img src={logo} className="logo" alt="application logo"/>
-              <h4 className="text-logo">Genesys Core</h4>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Box sx={{ display: 'flex'}}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open} sx={{background: '#042e50'}}>
+          <Toolbar>
+            <IconButton 
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'flex'}) }}
+            >
+              <MenuIcon />
             </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-          <ListItemButton button onClick={()=> {
-            navigate("/Home")
-          }} >
-                <ListItemAvatar>
-                    <HouseIcon/>
-                </ListItemAvatar>
-                <ListItemText primary="Inicio"/>
-          </ListItemButton>
-              <ListItemButton onClick={()=> {
-                navigate("/inventory")
-              }}>
-                <ListItemAvatar>
-                    <WarehouseIcon/>
-                </ListItemAvatar>
-                <ListItemText primary="Inventario"/>
-            </ListItemButton>
-            <ListItemButton  onClick={()=> {
-              navigate("/productcategories")
+            <Typography variant="h6" noWrap component="div">
+              Panel de control
+              </Typography>
+            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1}}>
+              
+            </Typography>
+            <div>
+              <Typography variant="h6">
+              Bienvenido, John
+              </Typography>
+            </div>
+          </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+            <img src={logo} className="logo" alt="application logo"/>
+            <h4 className="text-logo">Genesys Core</h4>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+        <ListItemButton button onClick={()=> {
+          navigate("/Home")
+        }} >
+              <ListItemAvatar>
+                  <HouseIcon/>
+              </ListItemAvatar>
+              <ListItemText primary="Inicio"/>
+        </ListItemButton>
+            <ListItemButton onClick={()=> {
+              navigate("/inventory")
             }}>
               <ListItemAvatar>
-                <CategoryIcon/>
+                  <WarehouseIcon/>
               </ListItemAvatar>
-              <ListItemText primary="Categoría de productos"/>
+              <ListItemText primary="Inventario"/>
+          </ListItemButton>
+          <ListItemButton  onClick={()=> {
+            navigate("/productcategories")
+          }}>
+            <ListItemAvatar>
+              <CategoryIcon/>
+            </ListItemAvatar>
+            <ListItemText primary="Categoría de productos"/>
+          </ListItemButton>
+        </List>
+        <Divider />
+        <List>
+            <ListItemButton  >
+              <ListItemAvatar>
+                  <GroupIcon/>
+              </ListItemAvatar>
+              <ListItemText primary="Usuarios"/>
             </ListItemButton>
-          </List>
-          <Divider />
-          <List>
-              <ListItemButton  >
-                <ListItemAvatar>
-                    <GroupIcon/>
-                </ListItemAvatar>
-                <ListItemText primary="Usuarios"/>
-              </ListItemButton>
-              <ListItemButton  >
-                <ListItemAvatar>
-                    <SettingsIcon/>
-                </ListItemAvatar>
-                <ListItemText primary="Configuracion"/>
-              </ListItemButton>
-          </List>
-        </Drawer>
-        <Main open={open}>
-          <DrawerHeader />
-      </Main>
-      <Outlet/>
-    </Box>
-    );
-    
+            <ListItemButton  >
+              <ListItemAvatar>
+                  <SettingsIcon/>
+              </ListItemAvatar>
+              <ListItemText primary="Configuracion"/>
+            </ListItemButton>
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+    </Main>
+    <Outlet/>
+  </Box>
+  );
 }
 export default Menu;

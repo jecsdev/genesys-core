@@ -2,12 +2,11 @@ import React from 'react'
 import Table from '../components/CustomTable'
 import Menu from '../components/Menu'
 import AddIcon from '@mui/icons-material/Add';
-import { CardContent, Fab } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { CardContent } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {Card} from '@mui/material';
+import FabMenu from '../components/FabMenu';
 function Inventory() {
-
 
 const theme = createTheme({
   status: {
@@ -28,7 +27,6 @@ const theme = createTheme({
     }
   },
 });
-const navigate = useNavigate();
   return (
     <div className="inventory-card">
       <ThemeProvider theme={theme}>
@@ -38,11 +36,9 @@ const navigate = useNavigate();
         <CardContent>
         <Table/>
           <div className="fab">
-            <Fab color="primary" aria-label="add" onClick={()=>{
-              navigate("/qrscanner")
-            }} >
+            <FabMenu color="primary" aria-label="add" >
             <AddIcon/>
-            </Fab>
+            </FabMenu>
           </div>
         </CardContent>
       </Card>

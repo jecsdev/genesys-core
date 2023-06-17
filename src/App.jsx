@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import ProductCategories from './pages/ProductCategories';
 import CreateProductCategory from './pages/CreateProductCategory';
 import ProtectedRoutes from './utils/ProtectedRoutes';
+import AddProduct from './pages/AddProduct';
 function App() {
   return (
     <div className="App">
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/inventory" element={<Inventory/>}/>
                 <Route path="/productcategories" element={<ProductCategories/>}/>
                 <Route path="/createproductcategory" element={<CreateProductCategory/>}/>
+                <Route path="/addProduct" element={<AddProduct/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Route>
           </Routes>
