@@ -1,45 +1,45 @@
 import axios from "axios";
+import Cookies from "js-cookie"; 
 
 const API_URL = "https://localhost:7244/api/login/authorize/authenticate";
-
+const user = "user";
 const signUp = async (userName, password) => {
-    const response = await axios
-        .post(API_URL, "/signup", {
-            userName,
-            password
-        });
-    if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-    }
-    return response.data;
-}
+  const response = await axios.post(API_URL, "/signup", {
+    userName,
+    password
+  });
+  if (response.data.accessToken) {
+    Cookies.set(user, JSON.stringify(response.data));
+  }
+  return response.data;
+};
 
 const logIn = async (userName, password) => {
-    const response = await axios
-        .post(API_URL, {
-            userName,
-            password
-        });
-    if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-    }
-    console.log(response);
-    return response.data;
-}
+  const response = await axios.post(API_URL, {
+    userName,
+    password
+  });
+  if (response.data.accessToken) {
+    Cookies.set(user, JSON.stringify(response.data));
+  }
+  console.log(response);
+  return response.data;
+};
 
 const logOut = () => {
-    localStorage.removeItem("user");
-}
+  Cookies.remove(user);
+};
 
 const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem("user"));
-}
+  const userCookie = Cookies.get(user);
+  return userCookie ? JSON.parse(userCookie) : null;
+};
 
 const AuthService = {
-    signUp,
-    logIn,
-    logOut,
-    getCurrentUser
-}
+  signUp,
+  logIn,
+  logOut,
+  getCurrentUser
+};
 
 export default AuthService;
