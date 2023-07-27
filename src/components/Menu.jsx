@@ -134,7 +134,7 @@ import { ListItemButton } from '@mui/material';
         <Divider />
         <List>
         <ListItemButton button onClick={()=> {
-          navigate("/Home")
+          navigate("/dashboard")
         }} >
               <ListItemAvatar>
                   <HouseIcon/>

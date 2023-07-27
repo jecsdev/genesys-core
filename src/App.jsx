@@ -16,7 +16,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Login />} />
             <Route element={<ProtectedRoutes/>}>
-                <Route path="/home" element={<Home/>}/>
+                <Route path="/dashboard" element={<Home/>}/>
                 <Route path="/inventory" element={<Inventory/>}/>
                 <Route path="/productcategories" element={<ProductCategories/>}/>
                 <Route path="/createproductcategory" element={<CreateProductCategory/>}/>

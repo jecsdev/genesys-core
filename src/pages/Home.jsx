@@ -1,6 +1,6 @@
 import React from 'react'
 import Menu from '../components/Menu'
- function Home() {
+ function Dashboard() {
   return (
     <div className="App">
       <Menu/>
@@ -9,4 +9,4 @@ import Menu from '../components/Menu'
   )
 }
 
-export default Home
+export default Dashboard

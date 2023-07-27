@@ -1,9 +1,14 @@
-export default function authHeader(){
-    const user = JSON.parse(localStorage.getItem("user"));
+import Cookies from 'js-cookie';
 
-    if(user && user.accessToken){
-        return { Authorization: 'Bearer ' + user.accessToken };
-    }else{
-        return{};
+export default function authHeader() {
+  const userCookie = Cookies.get('user');
+
+  if (userCookie) {
+    const user = JSON.parse(userCookie);
+    if (user && user.accessToken) {
+      return { Authorization: 'Bearer ' + user.accessToken };
     }
+  }
+
+  return {};
 }
