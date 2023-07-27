@@ -1,7 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie"; 
 
-const API_URL = "https://localhost:7244/api/login/authorize/authenticate";
+const API_URL =
+  window.location.hostname === "localhost"
+    ? "https://localhost:44380/api/login/authorize/authenticate"
+    : "https://10.0.0.3:44380/api/login/authorize/authenticate";
+
 const user = "user";
 const signUp = async (userName, password) => {
   const response = await axios.post(API_URL, "/signup", {

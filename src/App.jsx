@@ -1,50 +1,35 @@
+import './App.css';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Redirect } from 'react-router-dom';
-import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import NotFound from './pages/NotFound';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import ProductCategories from './pages/ProductCategories';
 import CreateProductCategory from './pages/CreateProductCategory';
-import ProtectedRoutes from './utils/ProtectedRoutes';
+
 import AddProduct from './pages/AddProduct';
 
-function App() {
-  // handles user authentication state
-  const isAuthenticated = false; 
 
+function App() {
   return (
     <div className="App">
-      <Router>
+      <BrowserRouter>
         <Routes>
-          /* conditional redirection */
-          <Route path="/" element={isAuthenticated ? <Home /> : <Redirect to="/login" />} />
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/productcategories" element={<ProductCategories />} />
+          <Route path="/createproductcategory" element={<CreateProductCategory />} />
+          <Route path="/addProduct" element={<AddProduct />} />
 
-          /* Rutas protegidas que requieren autenticación */
-          <Route
-            element={
-              isAuthenticated ? (
-                <ProtectedRoutes>
-                  <Route path="/dashboard" element={<Home />} />
-                  <Route path="/inventory" element={<Inventory />} />
-                  <Route path="/productcategories" element={<ProductCategories />} />
-                  <Route path="/createproductcategory" element={<CreateProductCategory />} />
-                  <Route path="/addProduct" element={<AddProduct />} />
-                </ProtectedRoutes>
-              ) : (
-                <Redirect to="/login" />
-              )
-            }
-          />
-
-          /* Ruta para manejar cualquier otra URL no encontrada */
+          {/* Ruta para manejar cualquier otra URL no encontrada */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }
 
 export default App;
-
