@@ -22,6 +22,8 @@ import CategoryIcon from '@mui/icons-material/Category';
 import logo from '../assets/logo.png';
 import { Outlet, useNavigate} from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
+import { ExitToApp } from '@mui/icons-material';
+import AuthService from '../auth-services/auth-service';
 
 
  function Menu() {
@@ -83,6 +85,10 @@ import { ListItemButton } from '@mui/material';
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const logOut = () => {
+    AuthService.logOut();
   };
 
   return (
@@ -171,6 +177,15 @@ import { ListItemButton } from '@mui/material';
                   <SettingsIcon/>
               </ListItemAvatar>
               <ListItemText primary="Configuracion"/>
+            </ListItemButton>
+            <ListItemButton onClick={()=> {
+              logOut()
+              navigate("/login")
+            }}>
+              <ListItemAvatar>
+                  <ExitToApp/>
+              </ListItemAvatar>
+              <ListItemText primary="Cerrar sesión"/>
             </ListItemButton>
         </List>
       </Drawer>
