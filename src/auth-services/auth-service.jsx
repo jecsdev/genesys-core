@@ -1,10 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie"; 
-
-const API_URL = "https://localhost:44380/api/login/authorize/authenticate";
+import UrlRoutes from "../api/UrlRoutes";
 const user = "user";
+
+//handle the user creation if does not exists
 const signUp = async (userName, password) => {
-  const response = await axios.post(API_URL, "/signup", {
+  const response = await axios.post(UrlRoutes.signUpUser(), "/signup", {
     userName,
     password
   });
@@ -14,9 +15,10 @@ const signUp = async (userName, password) => {
   return response.data;
 };
 
+//handle user login
 const logIn = async (userName, password) => {
   try{
-    const response = await axios.post(API_URL, {
+    const response = await axios.post(UrlRoutes.authenticateUser(), {
       userName,
       password
     });
@@ -32,14 +34,17 @@ const logIn = async (userName, password) => {
  
 };
 
+//logout user
 const logOut = () => {
   Cookies.remove(user);
 };
 
+//get user cookie if exists
 const getCurrentUser = () => {
   const userCookie = Cookies.get(user);
   return userCookie !== undefined && userCookie !== null ? JSON.parse(userCookie) : null;
 }
+//handle authentication methods for authentication
 const AuthService = {
   signUp,
   logIn,

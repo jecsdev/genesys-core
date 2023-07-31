@@ -3,9 +3,8 @@ import {useNavigate} from "react-router-dom"
 import AuthService from '../auth-services/auth-service';
 
 import {Avatar, Button,  Grid, Paper, TextField} from '@mui/material'
-//import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
- function Login() {
 
+function Login() {
 
   //form paper style
   const paperStyle = {
