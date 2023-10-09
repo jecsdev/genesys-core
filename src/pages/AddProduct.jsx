@@ -7,37 +7,39 @@ function AddProduct() {
     
   return ( 
     <div className="form-container">
-        <Menu/>
-        <h2>Agregar nuevo producto</h2>
-        <Grid>
-          <Paper elevation={10} className="paperStyleForm">
-              <FormControl className="form-group">
-                <form >
-                  <Typography variant='h7' className="typography-form">Nombre</Typography>
-                  <TextField className="textfield-form"/>
-                  <br/>
-                  <br/>
-                  <Typography variant='h7' className="typography-form">Codigo</Typography>
-                  <TextField className="textfield-form"/>
-                  <br/>
-                  <br/>
-                  <Typography variant='h7' className="typography-form">Precio</Typography>
-                  <TextField className="textfield-form"/>
-                  <br/>
-                  <br/>
-                  <Typography variant='h7' className="typography-form">Unidad de medida</Typography>
-                  <TextField className="textfield-form"/>
-                  <br/>
-                  <br/>
-                  <Typography variant='h7' className="typography-form">Cantidad</Typography>
-                  <TextField className="textfield-form"/>
-                  <br/>
-                  <br/>
-                  <Button variant="contained" className="form-button">Agregar</Button>
-                </form>
-              </FormControl>
-          </Paper>
-        </Grid>
+      <Menu/>
+      <Grid>
+        <Paper elevation={10} className="paperStyleForm">
+            <FormControl className="form-group">
+              <form >
+                <Typography variant='h5' >Agregar nuevo producto</Typography>
+                <br/>
+                <br/>
+                <Typography variant='h7' className="typography-form">Nombre</Typography>
+                <TextField className="textfield-form"/>
+                <br/>
+                <br/>
+                <Typography variant='h7' className="typography-form">Codigo</Typography>
+                <TextField className="textfield-form"/>
+                <br/>
+                <br/>
+                <Typography variant='h7' className="typography-form">Descripción</Typography>
+                <TextField className="textfield-form"/>
+                <br/>
+                <br/>
+                <Typography variant='h7' className="typography-form">Precio</Typography>
+                <TextField className="textfield-form"/>
+                <br/>
+                <br/>
+                <Typography variant='h7' className="typography-form">Unidad de medida</Typography>
+                <TextField className="textfield-form"/>
+                <br/>
+                <br/>
+                <Button variant="contained" className="form-button">Agregar</Button>
+              </form>
+            </FormControl>
+        </Paper>
+      </Grid>
     </div>
   )
 }
