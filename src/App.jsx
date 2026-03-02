@@ -1,36 +1,30 @@
-import './App.css';
-import React from 'react';
-import Dashboard from './pages/Dashboard';
-import Inventory from './pages/Inventory';
-import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import ProductCategories from './pages/ProductCategories';
-import CreateProductCategory from './pages/CreateProductCategory';
-import AddProduct from './pages/AddProduct';
-import ProtectedRoutes from './utils/ProtectedRoutes';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 
+// Ruta protegida
+const PrivateRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/" replace />;
+};
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route element={<ProtectedRoutes/>}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/productcategories" element={<ProductCategories />} />
-            <Route path="/createproductcategory" element={<CreateProductCategory />} />
-            <Route path="/addProduct" element={<AddProduct />} />
-          </Route>
-          {/* Ruta para manejar cualquier otra URL no encontrada */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <div style={{ color: 'white', padding: 40 }}>
+                ✅ Dashboard — próximamente
+              </div>
+            </PrivateRoute>
+          } />
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
-
-export default App;
