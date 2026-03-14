@@ -1,0 +1,129 @@
+.filters-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 9px 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #374151;
+  font-family: inherit;
+  outline: none;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-select:focus {
+  border-color: #f0a500;
+}
+
+.affiliate-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.affiliate-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  color: white; flex-shrink: 0;
+}
+
+.affiliate-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.affiliate-id {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.company-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.company-position {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.badge-number {
+  background: #f3f4f6;
+  color: #374151;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.badge-deps {
+  background: #eff6ff;
+  color: #3b82f6;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.no-deps {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.pagination-info {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page-btn {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+  border-color: #f0a500;
+  color: #f0a500;
+}
+
+.page-btn.active {
+  background: #f0a500;
+  border-color: #f0a500;
+  color: white;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
