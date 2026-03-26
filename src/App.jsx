@@ -7,7 +7,8 @@ import EmpresasPage from './pages/EmpresasPage.jsx';
 import NuevaEmpresaPage from './pages/NuevaEmpresaPage';
 import TitularesPage from './pages/AffiliatesPage.jsx';
 import NuevoTitularPage from './pages/NewAffiliatePage.jsx';
-
+import DependientesPage from './pages/DependientesPage';
+import NuevoDependientePage from './pages/NuevoDependientePage';
 // Ruta protegida
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -32,6 +33,9 @@ export default function App() {
           <Route path="/titulares" element={<PrivateRoute><TitularesPage /></PrivateRoute>} />
           <Route path="/titulares/nuevo" element={<PrivateRoute><NuevoTitularPage /></PrivateRoute>} />
           <Route path="/titulares/editar/:id" element={<PrivateRoute><NuevoTitularPage /></PrivateRoute>} />
+          <Route path="/dependientes" element={<PrivateRoute><DependientesPage /></PrivateRoute>} />
+          <Route path="/dependientes/nuevo" element={<PrivateRoute><NuevoDependientePage /></PrivateRoute>} />
+          <Route path="/dependientes/editar/:id" element={<PrivateRoute><NuevoDependientePage /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
