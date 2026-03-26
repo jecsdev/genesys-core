@@ -1,100 +1,180 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
-import TopBar from '../components/layout/TopBar';
+import { getDashboardStats } from '../api/dashboardApi';
 import './DashboardPage.css';
 
-const STATS = [
-  { label: 'Total Titulares', value: '2,543', change: '+12%', changeLabel: 'vs mes anterior', icon: <UserStatIcon />, color: 'gold' },
-  { label: 'Dependientes', value: '4,120', change: '+5%', changeLabel: 'vs mes anterior', icon: <UsersStatIcon />, color: 'gold' },
-  { label: 'Empresas', value: '86', change: '+2', changeLabel: 'nuevas este mes', icon: <BuildingStatIcon />, color: 'gold' },
-  { label: 'Pendientes', value: '14', change: '⚠ Atención', changeLabel: 'requieren revisión', icon: <ClockStatIcon />, color: 'warn' },
-];
-
-const RECENT = [
-  { initials: 'JR', color: '#3b82f6', name: 'Juan Rodríguez', time: 'Hace 2 horas', cedula: '8-765-1234', empresa: 'TechSolutions S.A.', tipo: 'Titular', estado: 'Activo' },
-  { initials: 'AM', color: '#f0a500', name: 'Ana Martínez', time: 'Hace 4 horas', cedula: '4-123-4567', empresa: 'Logística Global', tipo: 'Dependiente', estado: 'Activo' },
-  { initials: 'CP', color: '#10b981', name: 'Carlos Perez', time: 'Ayer', cedula: '3-456-7890', empresa: 'Inversiones 2020', tipo: 'Titular', estado: 'Pendiente' },
-  { initials: 'LS', color: '#8b5cf6', name: 'Luisa Sanchez', time: 'Ayer', cedula: '8-987-6543', empresa: 'TechSolutions S.A.', tipo: 'Dependiente', estado: 'Activo' },
-  { initials: 'RM', color: '#ef4444', name: 'Roberto Mendez', time: '23 Oct', cedula: '9-111-2222', empresa: 'Banco Nacional', tipo: 'Titular', estado: 'Activo' },
-];
-
 export default function DashboardPage() {
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      const res = await getDashboardStats();
+      setStats(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getInitials = (fullName) =>
+    fullName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+
+  const AVATAR_COLORS = ['#3b82f6', '#f0a500', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4'];
+  const getColor = (name) => AVATAR_COLORS[name.charCodeAt(0) % AVATAR_COLORS.length];
+
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffHrs < 1) return 'Hace unos minutos';
+    if (diffHrs < 24) return `Hace ${diffHrs} hora${diffHrs > 1 ? 's' : ''}`;
+    if (diffDays === 1) return 'Ayer';
+    return date.toLocaleDateString('es-DO', { day: '2-digit', month: 'short' });
+  };
+
+  const STATS_CONFIG = [
+    {
+      label: 'Total Titulares',
+      value: stats?.totalAffiliates ?? 0,
+      change: stats?.totalActive ?? 0,
+      changeLabel: 'activos',
+      icon: <UserStatIcon />,
+    },
+    {
+      label: 'Dependientes',
+      value: stats?.totalDependents ?? 0,
+      change: null,
+      changeLabel: 'registrados',
+      icon: <UsersStatIcon />,
+    },
+    {
+      label: 'Empresas',
+      value: stats?.totalCompanies ?? 0,
+      change: null,
+      changeLabel: 'afiliadas',
+      icon: <BuildingStatIcon />,
+    },
+    {
+      label: 'Inactivos',
+      value: stats?.totalInactive ?? 0,
+      change: null,
+      changeLabel: 'requieren revisión',
+      icon: <ClockStatIcon />,
+      warn: true,
+    },
+  ];
+
   return (
     <div className="app-layout">
       <Sidebar />
       <div className="app-main">
-        <TopBar
-          title="Resumen General"
-          subtitle="Bienvenido de vuelta, aquí está lo que sucede hoy."
-          actionLabel="Nueva Afiliación"
-          onAction={() => {}}
-        />
-        <div className="dashboard-content">
-          {/* Stats */}
-          <div className="stats-grid">
-            {STATS.map((s) => (
-              <div key={s.label} className={`stat-card ${s.color}`}>
-                <div className="stat-info">
-                  <span className="stat-label">{s.label}</span>
-                  <span className="stat-value">{s.value}</span>
-                  <span className="stat-change">
-                    <span className="stat-change-val">{s.change}</span>
-                    {' '}{s.changeLabel}
-                  </span>
-                </div>
-                <div className="stat-icon">{s.icon}</div>
-              </div>
-            ))}
+        {/* TopBar */}
+        <div className="page-header">
+          <div>
+            <h1 className="page-title">Resumen General</h1>
+            <p className="page-subtitle">Bienvenido de vuelta, aquí está lo que sucede hoy.</p>
           </div>
+          <div className="page-header-actions">
+            <button className="btn-primary-action" onClick={() => navigate('/titulares/nuevo')}>
+              <PlusIcon /> Nueva Afiliación
+            </button>
+          </div>
+        </div>
 
-          {/* Recent Table */}
-          <div className="recent-panel">
-            <div className="recent-header">
-              <span className="recent-title">Afiliaciones Recientes</span>
-              <button className="recent-ver-btn">Ver todos →</button>
-            </div>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>NOMBRE COMPLETO</th>
-                    <th>CÉDULA</th>
-                    <th>EMPRESA</th>
-                    <th>TIPO</th>
-                    <th>ESTADO</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {RECENT.map((r) => (
-                    <tr key={r.cedula}>
-                      <td>
-                        <div className="affiliate-cell">
-                          <div className="affiliate-avatar" style={{ background: r.color }}>
-                            {r.initials}
-                          </div>
-                          <div>
-                            <div className="affiliate-name">{r.name}</div>
-                            <div className="affiliate-time">{r.time}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="cell-cedula">{r.cedula}</td>
-                      <td>{r.empresa}</td>
-                      <td>{r.tipo}</td>
-                      <td>
-                        <span className={`badge ${r.estado === 'Activo' ? 'badge-active' : 'badge-pending'}`}>
-                          {r.estado}
-                        </span>
-                      </td>
-                      <td>
-                        <button className="row-menu-btn">⋮</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div className="dashboard-content">
+          {loading ? (
+            <div className="empty-state">Cargando...</div>
+          ) : (
+            <>
+              {/* Stats */}
+              <div className="stats-grid">
+                {STATS_CONFIG.map((s) => (
+                  <div key={s.label} className={`stat-card ${s.warn ? 'warn' : ''}`}>
+                    <div className="stat-info">
+                      <span className="stat-label">{s.label}</span>
+                      <span className="stat-value">{s.value.toLocaleString()}</span>
+                      <span className="stat-change">
+                        {s.change !== null && (
+                          <span className="stat-change-val">{s.change}</span>
+                        )}{' '}
+                        {s.changeLabel}
+                      </span>
+                    </div>
+                    <div className="stat-icon">{s.icon}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Recent Table */}
+              <div className="recent-panel">
+                <div className="recent-header">
+                  <span className="recent-title">Afiliaciones Recientes</span>
+                  <button className="recent-ver-btn" onClick={() => navigate('/titulares')}>
+                    Ver todos →
+                  </button>
+                </div>
+
+                {stats?.recentAffiliations?.length === 0 ? (
+                  <div className="empty-state">No hay afiliaciones registradas aún.</div>
+                ) : (
+                  <div className="table-wrap">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>NOMBRE COMPLETO</th>
+                          <th>CÉDULA</th>
+                          <th>EMPRESA</th>
+                          <th>TIPO</th>
+                          <th>ESTADO</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {stats?.recentAffiliations?.map((r, idx) => (
+                          <tr key={idx}>
+                            <td>
+                              <div className="affiliate-cell">
+                                <div className="affiliate-avatar" style={{ background: getColor(r.fullName) }}>
+                                  {getInitials(r.fullName)}
+                                </div>
+                                <div>
+                                  <div className="affiliate-name">{r.fullName}</div>
+                                  <div className="affiliate-time">{formatDate(r.createdAt)}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="cell-cedula">{r.identification}</td>
+                            <td>{r.companyName}</td>
+                            <td>
+                              <span className={`badge ${r.type === 'Titular' ? 'badge-titular' : 'badge-dependent'}`}>
+                                {r.type}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={`badge ${r.isActive ? 'badge-active' : 'badge-pending'}`}>
+                                {r.isActive ? 'Activo' : 'Inactivo'}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -102,6 +182,9 @@ export default function DashboardPage() {
 }
 
 // ── Icons ──
+function PlusIcon() {
+  return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
+}
 function UserStatIcon() {
   return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
 }
