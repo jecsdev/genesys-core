@@ -21,6 +21,12 @@ const NAV_ITEMS = [
   }
 ];
 
+const ROLE_LABELS = {
+  Administrator: 'Administrador',
+  Accountant: 'Contador',
+  Reader: 'Lector'
+};
+
 export default function Sidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -38,6 +44,7 @@ export default function Sidebar() {
 
   const fullName = user?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'Usuario';
   const role = user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '';
+  const roleLabel = ROLE_LABELS[role] || role;
 
   return (
     <aside className="sidebar">
@@ -80,7 +87,7 @@ export default function Sidebar() {
           <div className="sidebar-avatar">{initials}</div>
           <div className="sidebar-user-info">
             <span className="sidebar-user-name">{fullName}</span>
-            <span className="sidebar-user-role">{role}</span>
+            <span className="sidebar-user-role">{roleLabel}</span>
           </div>
         </div>
         <button className="sidebar-logout" onClick={handleLogout}>
