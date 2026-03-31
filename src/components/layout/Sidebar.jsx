@@ -83,7 +83,10 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="sidebar-footer">
-        <div className="sidebar-user">
+          <div className="sidebar-user" 
+            style={{ cursor: 'pointer' }} 
+            onClick={() => navigate('/perfil')}
+          >
           <div className="sidebar-avatar">{initials}</div>
           <div className="sidebar-user-info">
             <span className="sidebar-user-name">{fullName}</span>
