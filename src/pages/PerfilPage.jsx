@@ -29,7 +29,7 @@ export default function PerfilPage() {
       setLoading(true);
       const res = await getProfile();
       setProfile(res.data);
-      setForm({ fullName: res.data.fullName, email: res.data.email });
+      setForm({ fullName: res.data.fullName, userName: res.data.userName });
     } catch (err) {
       console.error(err);
     } finally {
@@ -167,11 +167,11 @@ export default function PerfilPage() {
                   />
                 </div>
                 <div className="form-group full">
-                  <label>Correo Electrónico</label>
+                  <label>Usuario</label>
                   <input
                     type="email"
-                    value={form.email}
-                    onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))}
+                    value={form.userName}
+                    onChange={(e) => setForm(p => ({ ...p, userName: e.target.value }))}
                   />
                 </div>
               </div>

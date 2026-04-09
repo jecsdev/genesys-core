@@ -3,25 +3,46 @@ import Sidebar from '../components/layout/Sidebar';
 import { getUsers, createUser, updateUser, deleteUser } from '../api/userApi';
 import './ConfiguracionPage.css';
 
-const ROLES = ['Administrador', 'Contabilidad', 'Lector'];
+// ── Role Mapper ──
+const roleToSpanish = {
+  Administrator: 'Administrador',
+  Accountant: 'Contabilidad',
+  Reader: 'Lector'
+};
+
+const roleToEnum = {
+  Administrador: 'Administrator',
+  Contabilidad: 'Accountant',
+  Lector: 'Reader'
+};
+
+const ROLES = ['Administrador', 'Contabilidad', 'Lector']; // display en español
 
 const ROLE_INFO = {
   Administrador: {
     description: 'Acceso total a todas las funciones y configuraciones del sistema.',
     color: '#f0a500',
     bg: '#fffbeb',
+    enumValue: 'Administrator'
   },
   Contabilidad: {
     description: 'Puede crear, editar y aprobar afiliaciones. Sin acceso a configuración.',
     color: '#3b82f6',
     bg: '#eff6ff',
+    enumValue: 'Accountant'
   },
   Lector: {
     description: 'Acceso de solo lectura a reportes y listados. No puede editar.',
     color: '#8b5cf6',
     bg: '#f5f3ff',
+    enumValue: 'Reader'
   },
 };
+
+// Helpers
+const getSpanishRole = (enumRole) => roleToSpanish[enumRole] || enumRole;
+const getEnumRole = (spanishRole) => roleToEnum[spanishRole] || spanishRole;
+const getRoleInfo = (enumRole) => ROLE_INFO[getSpanishRole(enumRole)] || null;
 
 export default function ConfiguracionPage() {
   const [users, setUsers] = useState([]);
@@ -51,7 +72,7 @@ export default function ConfiguracionPage() {
 
   const filtered = users.filter(u =>
     u.fullName.toLowerCase().includes(search.toLowerCase()) ||
-    u.email.toLowerCase().includes(search.toLowerCase())
+    u.userName.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleOpenCreate = () => {
@@ -67,7 +88,7 @@ export default function ConfiguracionPage() {
       fullName: user.fullName,
       email: user.email,
       password: '',
-      role: user.role,
+      role: getSpanishRole(user.role), // ← convierte a español para mostrar
       isActive: user.isActive
     });
     setFormError('');
@@ -78,15 +99,17 @@ export default function ConfiguracionPage() {
     setFormError('');
     setSaving(true);
     try {
+      const payload = {
+        fullName: form.fullName,
+        email: form.email,
+        role: getEnumRole(form.role), // ← convierte a inglés para enviar
+        isActive: form.isActive
+      };
+
       if (editingUser) {
-        await updateUser(editingUser.id, {
-          fullName: form.fullName,
-          email: form.email,
-          role: form.role,
-          isActive: form.isActive
-        });
+        await updateUser(editingUser.id, payload);
       } else {
-        await createUser(form);
+        await createUser({ ...payload, password: form.password });
       }
       setShowModal(false);
       fetchUsers();
@@ -118,7 +141,8 @@ export default function ConfiguracionPage() {
   const getInitials = (name) =>
     name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
 
-  const roleCount = (role) => users.filter(u => u.role === role).length;
+  const roleCount = (spanishRole) =>
+    users.filter(u => u.role === getEnumRole(spanishRole)).length;
 
   return (
     <div className="app-layout">
@@ -190,23 +214,23 @@ export default function ConfiguracionPage() {
                         <td>
                           <div className="affiliate-cell">
                             <div className="affiliate-avatar" style={{
-                              background: u.role === 'Administrador' ? '#f0a500'
-                                : u.role === 'Gestor' ? '#3b82f6' : '#8b5cf6'
+                              background: u.role === 'Administrator' ? '#f0a500'
+                                : u.role === 'Accountant' ? '#3b82f6' : '#8b5cf6'
                             }}>
                               {getInitials(u.fullName)}
                             </div>
                             <div>
                               <div className="affiliate-name">{u.fullName}</div>
-                              <div className="affiliate-id">{u.email}</div>
+                              <div className="affiliate-id">{u.userName}</div>
                             </div>
                           </div>
                         </td>
                         <td>
                           <span className="badge" style={{
-                            background: ROLE_INFO[u.role]?.bg || '#f3f4f6',
-                            color: ROLE_INFO[u.role]?.color || '#374151'
+                            background: getRoleInfo(u.role)?.bg || '#f3f4f6',
+                            color: getRoleInfo(u.role)?.color || '#374151'
                           }}>
-                            {u.role}
+                            {getSpanishRole(u.role)} {/* ← muestra en español */}
                           </span>
                         </td>
                         <td>
@@ -286,6 +310,7 @@ export default function ConfiguracionPage() {
                   onChange={(e) => setForm(p => ({ ...p, role: e.target.value }))}
                   className="form-select"
                 >
+                  {/* Muestra en español, envía en español (se convierte en handleSave) */}
                   {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
                 </select>
               </div>
@@ -320,7 +345,7 @@ export default function ConfiguracionPage() {
 function RoleIcon({ role, color }) {
   if (role === 'Administrador')
     return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
-  if (role === 'Gestor')
+  if (role === 'Contabilidad')
     return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>;
   return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>;
 }

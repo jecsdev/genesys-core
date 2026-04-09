@@ -5,27 +5,27 @@ import { loginRequest } from '../api/authApi';
 import './LoginPage.css';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-    try {
-      const res = await loginRequest({ email, password });
-      login(res.data.token);
-      navigate('/dashboard');
-    } catch {
-      setError('Usuario o contraseña incorrectos. Por favor intenta nuevamente.');
-    } finally {
-      setLoading(false);
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
+  setLoading(true);
+  try {
+    const res = await loginRequest({ username, password });
+    login(res.data.token);
+    navigate('/dashboard');
+  } catch {
+    setError('Usuario o contraseña incorrectos. Por favor intenta nuevamente.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="login-bg">
@@ -69,10 +69,10 @@ export default function LoginPage() {
                 <circle cx="12" cy="7" r="4" />
               </svg>
               <input
-                type="email"
-                placeholder="nombre@empresa.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="Usuario"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
             </div>
