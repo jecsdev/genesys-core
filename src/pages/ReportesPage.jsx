@@ -6,6 +6,7 @@ import {
   downloadDependentsReport,
   downloadAffiliatesByCompanyReport,
 } from '../api/reportApi';
+import { usePermissions } from '../hooks/usePermissions';
 import './ReportesPage.css';
 
 const REPORTS = [
@@ -42,6 +43,7 @@ const REPORTS = [
 export default function ReportesPage() {
   const [loading, setLoading] = useState({});
   const [success, setSuccess] = useState({});
+  const { canDownload } = usePermissions();
 
   const handleDownload = async (report) => {
     setLoading(prev => ({ ...prev, [report.id]: true }));
@@ -82,27 +84,29 @@ export default function ReportesPage() {
                 <div className="report-icon">{report.icon}</div>
                 <h3 className="report-title">{report.title}</h3>
                 <p className="report-description">{report.description}</p>
-                <div className="report-actions">
-                  <button
-                    className={`btn-download ${success[report.id] ? 'success' : ''}`}
-                    onClick={() => handleDownload(report)}
-                    disabled={loading[report.id]}
-                  >
-                    {loading[report.id] ? (
-                      <>
-                        <SpinnerIcon /> Generando...
-                      </>
-                    ) : success[report.id] ? (
-                      <>
-                        <CheckIcon /> Descargado
-                      </>
-                    ) : (
-                      <>
-                        <DownloadIcon /> Descargar Excel
-                      </>
-                    )}
-                  </button>
-                </div>
+                {canDownload('reportes') && (
+                  <div className="report-actions">
+                    <button
+                      className={`btn-download ${success[report.id] ? 'success' : ''}`}
+                      onClick={() => handleDownload(report)}
+                      disabled={loading[report.id]}
+                    >
+                      {loading[report.id] ? (
+                        <>
+                          <SpinnerIcon /> Generando...
+                        </>
+                      ) : success[report.id] ? (
+                        <>
+                          <CheckIcon /> Descargado
+                        </>
+                      ) : (
+                        <>
+                          <DownloadIcon /> Descargar Excel
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

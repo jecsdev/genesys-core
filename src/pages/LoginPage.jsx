@@ -70,7 +70,7 @@ const handleSubmit = async (e) => {
               </svg>
               <input
                 type="text"
-                placeholder="Usuario"
+                placeholder="Ingresa tu usuario"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required

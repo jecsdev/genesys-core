@@ -17,7 +17,7 @@ export default function PerfilPage() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
 
-  const [form, setForm] = useState({ fullName: '', email: '' });
+  const [form, setForm] = useState({ fullName: '', userName: '' });
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '', newPassword: '', confirmPassword: ''
   });
@@ -169,7 +169,7 @@ export default function PerfilPage() {
                 <div className="form-group full">
                   <label>Usuario</label>
                   <input
-                    type="email"
+                    type="text"
                     value={form.userName}
                     onChange={(e) => setForm(p => ({ ...p, userName: e.target.value }))}
                   />

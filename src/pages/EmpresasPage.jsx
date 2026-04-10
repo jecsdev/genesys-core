@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
 import { getCompanies, deleteCompany, updateCompany } from '../api/companyApi';
+import { usePermissions } from '../hooks/usePermissions';
 import './EmpresasPage.css';
 
 export default function EmpresasPage() {
@@ -11,6 +12,7 @@ export default function EmpresasPage() {
   const [tab, setTab] = useState('todas');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { canCreate, canEdit, canDelete } = usePermissions();
 
   useEffect(() => {
     fetchCompanies();
@@ -84,12 +86,11 @@ export default function EmpresasPage() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <button className="btn-export">
-              <DownloadIcon /> Exportar
-            </button>
-            <button className="btn-primary-action" onClick={() => navigate('/empresas/nueva')}>
-              <PlusIcon /> Nueva Empresa
-            </button>
+            {canCreate('empresas') && (
+              <button className="btn-primary-action" onClick={() => navigate('/empresas/nueva')}>
+                <PlusIcon /> Nueva Empresa
+              </button>
+            )}
           </div>
         </div>
 
@@ -111,9 +112,6 @@ export default function EmpresasPage() {
                 </button>
               ))}
             </div>
-            <button className="btn-export">
-              <DownloadIcon /> Exportar
-            </button>
           </div>
 
           {/* Table */}
@@ -162,13 +160,15 @@ export default function EmpresasPage() {
                         </td>
                         <td>
                           <div className="row-actions">
-                            <button
-                              className="btn-row-action"
-                              title="Editar"
-                              onClick={() => navigate(`/empresas/editar/${c.id}`)}
-                            >
-                              <EditIcon />
-                            </button>
+                            {canEdit('empresas') && (
+                              <button
+                                className="btn-row-action"
+                                title="Editar"
+                                onClick={() => navigate(`/empresas/editar/${c.id}`)}
+                              >
+                                <EditIcon />
+                              </button>
+                            )}
                             <button
                               className="btn-row-action"
                               title={c.isActive ? 'Desactivar' : 'Activar'}
@@ -176,13 +176,15 @@ export default function EmpresasPage() {
                             >
                               <ToggleIcon active={c.isActive} />
                             </button>
-                            <button
-                              className="btn-row-action danger"
-                              title="Eliminar"
-                              onClick={() => handleDelete(c.id)}
-                            >
-                              <TrashIcon />
-                            </button>
+                            {canDelete('empresas') && (
+                              <button
+                                className="btn-row-action danger"
+                                title="Eliminar"
+                                onClick={() => handleDelete(c.id)}
+                              >
+                                <TrashIcon />
+                              </button>
+                            )}
                           </div>
                         </td>
                       </tr>

@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
 import { getDashboardStats } from '../api/dashboardApi';
+import { usePermissions } from '../hooks/usePermissions';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { role } = usePermissions();
 
   useEffect(() => {
     fetchStats();
@@ -86,11 +88,13 @@ export default function DashboardPage() {
             <h1 className="page-title">Resumen General</h1>
             <p className="page-subtitle">Bienvenido de vuelta, aquí está lo que sucede hoy.</p>
           </div>
-          <div className="page-header-actions">
-            <button className="btn-primary-action" onClick={() => navigate('/titulares/nuevo')}>
-              <PlusIcon /> Nueva Afiliación
-            </button>
-          </div>
+          {role === 'Administrator' && (
+            <div className="page-header-actions">
+              <button className="btn-primary-action" onClick={() => navigate('/titulares/nuevo')}>
+                <PlusIcon /> Nueva Afiliación
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="dashboard-content">

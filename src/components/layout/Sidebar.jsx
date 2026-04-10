@@ -1,22 +1,23 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { usePermissions } from '../../hooks/usePermissions';
 import './Sidebar.css';
 
 const NAV_ITEMS = [
   {
     label: 'MENÚ',
     items: [
-      { to: '/dashboard', icon: <GridIcon />, label: 'Panel de Control' },
-      { to: '/empresas', icon: <BuildingIcon />, label: 'Empresas' },
-      { to: '/titulares', icon: <UserIcon />, label: 'Titulares' },
-      { to: '/dependientes', icon: <UsersIcon />, label: 'Dependientes' },
+      { to: '/dashboard', icon: <GridIcon />, label: 'Panel de Control', module: 'dashboard' },
+      { to: '/empresas', icon: <BuildingIcon />, label: 'Empresas', module: 'empresas' },
+      { to: '/titulares', icon: <UserIcon />, label: 'Titulares', module: 'titulares' },
+      { to: '/dependientes', icon: <UsersIcon />, label: 'Dependientes', module: 'dependientes' },
     ]
   },
   {
     label: 'SISTEMA',
     items: [
-      { to: '/reportes', icon: <ReportIcon />, label: 'Reportes' },
-      { to: '/configuracion', icon: <SettingsIcon />, label: 'Configuración' },
+      { to: '/reportes', icon: <ReportIcon />, label: 'Reportes', module: 'reportes' },
+      { to: '/configuracion', icon: <SettingsIcon />, label: 'Configuración', module: 'configuracion' },
     ]
   }
 ];
@@ -29,6 +30,7 @@ const ROLE_LABELS = {
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
+  const { canView } = usePermissions();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -62,23 +64,27 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav className="sidebar-nav">
-        {NAV_ITEMS.map((section) => (
-          <div key={section.label} className="nav-section">
-            <span className="nav-section-label">{section.label}</span>
-            {section.items.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `nav-item ${isActive ? 'active' : ''}`
-                }
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
-          </div>
-        ))}
+        {NAV_ITEMS.map((section) => {
+          const visibleItems = section.items.filter(item => canView(item.module));
+          if (visibleItems.length === 0) return null;
+          return (
+            <div key={section.label} className="nav-section">
+              <span className="nav-section-label">{section.label}</span>
+              {visibleItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `nav-item ${isActive ? 'active' : ''}`
+                  }
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </NavLink>
+              ))}
+            </div>
+          );
+        })}
       </nav>
 
       {/* Footer */}

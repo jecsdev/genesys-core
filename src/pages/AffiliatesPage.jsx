@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
 import { getAffiliates, deleteAffiliate, updateAffiliate } from '../api/affiliateApi';
 import { getCompanies } from '../api/companyApi';
+import { usePermissions } from '../hooks/usePermissions';
 import './AffiliatesPage.css';
 
 export default function AffiliatesPage() {
@@ -16,6 +17,7 @@ export default function AffiliatesPage() {
   const [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const navigate = useNavigate();
+  const { canCreate, canEdit, canDelete } = usePermissions();
 
   useEffect(() => {
     fetchData();
@@ -87,12 +89,11 @@ export default function AffiliatesPage() {
             <h1 className="page-title">Gestión de Titulares</h1>
           </div>
           <div className="page-header-actions">
-            <button className="btn-export">
-              <DownloadIcon /> Exportar
-            </button>
-            <button className="btn-primary-action" onClick={() => navigate('/titulares/nuevo')}>
-              <PlusIcon /> Registrar Titular
-            </button>
+            {canCreate('titulares') && (
+              <button className="btn-primary-action" onClick={() => navigate('/titulares/nuevo')}>
+                <PlusIcon /> Registrar Titular
+              </button>
+            )}
           </div>
         </div>
 
@@ -185,20 +186,24 @@ export default function AffiliatesPage() {
                         </td>
                         <td>
                           <div className="row-actions">
-                            <button
-                              className="btn-row-action"
-                              title="Editar"
-                              onClick={() => navigate(`/titulares/editar/${a.id}`)}
-                            >
-                              <EditIcon />
-                            </button>
-                            <button
-                              className="btn-row-action danger"
-                              title="Eliminar"
-                              onClick={() => handleDelete(a.id)}
-                            >
-                              <TrashIcon />
-                            </button>
+                            {canEdit('titulares') && (
+                              <button
+                                className="btn-row-action"
+                                title="Editar"
+                                onClick={() => navigate(`/titulares/editar/${a.id}`)}
+                              >
+                                <EditIcon />
+                              </button>
+                            )}
+                            {canDelete('titulares') && (
+                              <button
+                                className="btn-row-action danger"
+                                title="Eliminar"
+                                onClick={() => handleDelete(a.id)}
+                              >
+                                <TrashIcon />
+                              </button>
+                            )}
                           </div>
                         </td>
                       </tr>

@@ -4,7 +4,7 @@ import './LoginPage.css';
 import './ForgotPasswordPage.css';
 
 export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e) => {
@@ -37,27 +37,27 @@ export default function ForgotPasswordPage() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-            <div className="login-field">
-              <label>Usuario</label>
-              <div className="input-wrapper">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                  stroke="#9ca3af" strokeWidth="2">
-                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-                <input
-                  type="email"
-                  placeholder="ej. admin@empresa.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
+          <div className="forgot-password-field">
+            <label>Usuario</label>
+            <div className="input-wrapper">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="#9ca3af" strokeWidth="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input
+                type="text"
+                placeholder="ej. Nombre de usuario"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
             </div>
-            <button type="submit" className="login-btn">
-              Notificar a administrador
-            </button>
-          </form>
+          </div>
+          <button type="submit" className="login-btn" style={{ width: '100%' }}>
+            Notificar a administrador
+          </button>
+        </form>
         )}
 
         <Link to="/" className="forgot-back">

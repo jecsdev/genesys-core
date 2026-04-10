@@ -51,7 +51,7 @@ export default function ConfiguracionPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [form, setForm] = useState({
-    fullName: '', email: '', password: '', role: 'Contabilidad', isActive: true
+    fullName: '', userName: '', password: '', role: 'Contabilidad', isActive: true
   });
   const [formError, setFormError] = useState('');
   const [saving, setSaving] = useState(false);
@@ -77,7 +77,7 @@ export default function ConfiguracionPage() {
 
   const handleOpenCreate = () => {
     setEditingUser(null);
-    setForm({ fullName: '', email: '', password: '', role: 'Contabilidad', isActive: true });
+    setForm({ fullName: '', userName: '', password: '', role: 'Contabilidad', isActive: true });
     setFormError('');
     setShowModal(true);
   };
@@ -86,9 +86,9 @@ export default function ConfiguracionPage() {
     setEditingUser(user);
     setForm({
       fullName: user.fullName,
-      email: user.email,
+      userName: user.userName,
       password: '',
-      role: getSpanishRole(user.role), // ← convierte a español para mostrar
+      role: getSpanishRole(user.role), 
       isActive: user.isActive
     });
     setFormError('');
@@ -101,8 +101,8 @@ export default function ConfiguracionPage() {
     try {
       const payload = {
         fullName: form.fullName,
-        email: form.email,
-        role: getEnumRole(form.role), // ← convierte a inglés para enviar
+        userName: form.userName,
+        role: getEnumRole(form.role), 
         isActive: form.isActive
       };
 
@@ -284,12 +284,12 @@ export default function ConfiguracionPage() {
                 />
               </div>
               <div className="form-group">
-                <label>Correo Electrónico *</label>
+                <label>Nombre de Usuario *</label>
                 <input
-                  type="email"
-                  placeholder="correo@empresa.com"
-                  value={form.email}
-                  onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))}
+                  type="username"
+                  placeholder="Ej. maria.gonzalez"
+                  value={form.userName}
+                  onChange={(e) => setForm(p => ({ ...p, userName: e.target.value }))}
                 />
               </div>
               {!editingUser && (

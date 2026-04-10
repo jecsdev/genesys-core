@@ -14,7 +14,7 @@ export default function NewAffiliatePage() {
     firstName: '',
     lastName: '',
     identification: '',
-    email: '',
+    userName: '',
     phone: '',
     address: '',
     position: '',
@@ -35,7 +35,7 @@ export default function NewAffiliatePage() {
           firstName: a.firstName,
           lastName: a.lastName,
           identification: a.identification,
-          email: a.email,
+          userName: a.userName,
           phone: a.phone,
           address: a.address,
           position: a.position,
@@ -145,12 +145,12 @@ export default function NewAffiliatePage() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Correo Electrónico</label>
+                  <label>Nombre de Usuario *</label>
                   <input
-                    type="email"
-                    name="email"
-                    placeholder="correo@ejemplo.com"
-                    value={form.email}
+                    type="text"
+                    name="userName"
+                    placeholder="Ej. rafael.perez"
+                    value={form.userName}
                     onChange={handleChange}
                   />
                 </div>
