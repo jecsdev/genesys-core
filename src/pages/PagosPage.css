@@ -1,0 +1,11 @@
+.amount-cell {
+  font-weight: 700;
+  color: #111827;
+  font-size: 14px;
+}
+
+.reference-cell {
+  font-family: monospace;
+  font-size: 13px;
+  color: #6b7280;
+}

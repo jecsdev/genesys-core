@@ -13,6 +13,10 @@ import NuevoDependientePage from './pages/NuevoDependientePage';
 import ReportesPage from './pages/ReportesPage';
 import ConfiguracionPage from './pages/ConfiguracionPage';
 import PerfilPage from './pages/PerfilPage';
+import PlanesPage from './pages/PlanesPage';
+import NuevoPlanPage from './pages/NuevoPlanPage';
+import PagosPage from './pages/PagosPage';
+import NuevoPagoPage from './pages/NuevoPagoPage';
 
 // Ruta protegida por autenticación
 const PrivateRoute = ({ children }) => {
@@ -36,8 +40,8 @@ export default function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/dashboard" element={
-            <PrivateRoute>             
-                <DashboardPage />
+            <PrivateRoute>
+              <DashboardPage />
             </PrivateRoute>
           } />
           <Route path="/empresas" element={<PrivateRoute><EmpresasPage /></PrivateRoute>} />
@@ -52,6 +56,12 @@ export default function App() {
           <Route path="/reportes" element={<PrivateRoute><ReportesPage /></PrivateRoute>} />
           <Route path="/configuracion" element={<RoleRoute module="configuracion"><ConfiguracionPage /></RoleRoute>} />
           <Route path="/perfil" element={<PrivateRoute><PerfilPage /></PrivateRoute>} />
+          <Route path="/planes" element={<PrivateRoute><PlanesPage /></PrivateRoute>} />
+          <Route path="/planes/nuevo" element={<PrivateRoute><NuevoPlanPage /></PrivateRoute>} />
+          <Route path="/planes/editar/:id" element={<PrivateRoute><NuevoPlanPage /></PrivateRoute>} />
+          <Route path="/pagos" element={<PrivateRoute><PagosPage /></PrivateRoute>} />
+          <Route path="/pagos/nuevo" element={<PrivateRoute><NuevoPagoPage /></PrivateRoute>} />
+          <Route path="/pagos/editar/:id" element={<PrivateRoute><NuevoPagoPage /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

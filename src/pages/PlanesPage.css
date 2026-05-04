@@ -1,0 +1,165 @@
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.plan-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #f3f4f6;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.2s;
+}
+
+.plan-card:hover {
+  border-color: #f0a500;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.plan-card.inactive {
+  opacity: 0.6;
+}
+
+.plan-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.plan-icon {
+  width: 44px; height: 44px;
+  background: #fffbeb;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.plan-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.plan-description {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.plan-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #fffbeb;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.price-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.price-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f0a500;
+}
+
+.plan-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plan-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.plan-benefits {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 12px;
+}
+
+.benefits-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.plan-benefits ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plan-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.plan-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.btn-plan-edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f9fafb;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  flex: 1;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-plan-edit:hover {
+  border-color: #f0a500;
+  color: #f0a500;
+}
+
+.btn-plan-delete {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: none;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-plan-delete:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}

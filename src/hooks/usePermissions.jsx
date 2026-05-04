@@ -2,21 +2,21 @@ import { useAuth } from '../context/AuthContext';
 
 const PERMISSIONS = {
   Administrator: {
-    canView: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'configuracion', 'perfil'],
-    canEdit: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'configuracion', 'perfil'],
-    canDelete: ['empresas', 'titulares', 'dependientes', 'configuracion'],
-    canCreate: ['empresas', 'titulares', 'dependientes', 'configuracion'],
+    canView: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'configuracion', 'perfil', 'planes', 'pagos'],
+    canEdit: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'configuracion', 'perfil', 'planes', 'pagos'],
+    canDelete: ['empresas', 'titulares', 'dependientes', 'configuracion', 'planes', 'pagos'],
+    canCreate: ['empresas', 'titulares', 'dependientes', 'configuracion', 'planes', 'pagos'],
     canDownload: ['reportes'],
   },
   Accountant: {
-    canView: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'perfil'],
-    canEdit: ['empresas', 'titulares', 'dependientes', 'perfil'],
-    canDelete: ['empresas', 'titulares', 'dependientes'],
-    canCreate: ['empresas', 'titulares', 'dependientes'],
+    canView: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'perfil', 'planes', 'pagos'],
+    canEdit: ['empresas', 'titulares', 'dependientes', 'perfil', 'planes', 'pagos'],
+    canDelete: ['empresas', 'titulares', 'dependientes', 'planes', 'pagos'],
+    canCreate: ['empresas', 'titulares', 'dependientes', 'planes', 'pagos'],
     canDownload: ['reportes'],
   },
   Reader: {
-    canView: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'perfil'],
+    canView: ['dashboard', 'empresas', 'titulares', 'dependientes', 'reportes', 'perfil', 'planes', 'pagos'],
     canEdit: [],
     canDelete: [],
     canCreate: [],
