@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
 import { createAffiliate, getAffiliate, updateAffiliate } from '../api/affiliateApi';
 import { getCompanies } from '../api/companyApi';
+import { getServicePlans } from '../api/servicePlanApi';
 import './NewAffiliatePage.css';
 
 export default function NewAffiliatePage() {
@@ -14,20 +15,27 @@ export default function NewAffiliatePage() {
     firstName: '',
     lastName: '',
     identification: '',
-    userName: '',
+    email: '',
     phone: '',
     address: '',
     position: '',
     isActive: true,
     companyId: '',
+    servicePlanId: '',
   });
   const [companies, setCompanies] = useState([]);
+  const [plans, setPlans] = useState([]);
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [affiliateNumber, setAffiliateNumber] = useState('');
 
   useEffect(() => {
-    getCompanies().then(res => setCompanies(res.data));
+    Promise.all([getCompanies(), getServicePlans()]).then(([cRes, pRes]) => {
+      setCompanies(cRes.data);
+      setPlans(pRes.data.filter(p => p.isActive)); // solo planes activos
+    });
+
     if (isEditing) {
       getAffiliate(id).then(res => {
         const a = res.data;
@@ -35,17 +43,24 @@ export default function NewAffiliatePage() {
           firstName: a.firstName,
           lastName: a.lastName,
           identification: a.identification,
-          userName: a.userName,
+          email: a.email,
           phone: a.phone,
           address: a.address,
           position: a.position,
           isActive: a.isActive,
           companyId: a.companyId,
+          servicePlanId: a.servicePlanId,
         });
         setAffiliateNumber(a.affiliateNumber);
       });
     }
   }, [id]);
+
+  // Actualiza el plan seleccionado cuando cambia el id
+  useEffect(() => {
+    const plan = plans.find(p => p.id === parseInt(form.servicePlanId));
+    setSelectedPlan(plan || null);
+  }, [form.servicePlanId, plans]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +72,11 @@ export default function NewAffiliatePage() {
     setError('');
     setLoading(true);
     try {
-      const payload = { ...form, companyId: parseInt(form.companyId) };
+      const payload = {
+        ...form,
+        companyId: parseInt(form.companyId),
+        servicePlanId: parseInt(form.servicePlanId)
+      };
       if (isEditing) {
         await updateAffiliate(id, payload);
       } else {
@@ -71,11 +90,13 @@ export default function NewAffiliatePage() {
     }
   };
 
+  const formatPrice = (price) =>
+    new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP' }).format(price);
+
   return (
     <div className="app-layout">
       <Sidebar />
       <div className="app-main">
-        {/* Header */}
         <div className="page-header">
           <div className="page-header-left">
             <button className="btn-back" onClick={() => navigate('/titulares')}>
@@ -145,12 +166,12 @@ export default function NewAffiliatePage() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Nombre de Usuario *</label>
+                  <label>Correo Electrónico</label>
                   <input
-                    type="text"
-                    name="userName"
-                    placeholder="Ej. rafael.perez"
-                    value={form.userName}
+                    type="email"
+                    name="email"
+                    placeholder="correo@ejemplo.com"
+                    value={form.email}
                     onChange={handleChange}
                   />
                 </div>
@@ -238,6 +259,66 @@ export default function NewAffiliatePage() {
                 </div>
               </div>
             </div>
+
+            {/* Plan de Servicio */}
+            <div className="form-section">
+              <div className="form-section-header">
+                <PlanIcon />
+                <div>
+                  <h2 className="form-section-title">Plan de Servicio</h2>
+                  <p className="form-section-subtitle">Selecciona el plan que cubrirá al titular y sus dependientes.</p>
+                </div>
+              </div>
+              <div className="form-grid">
+                <div className="form-group full">
+                  <label>Plan *</label>
+                  <select
+                    name="servicePlanId"
+                    value={form.servicePlanId}
+                    onChange={handleChange}
+                    required
+                    className="form-select"
+                  >
+                    <option value="">Seleccionar plan...</option>
+                    {plans.map(p => (
+                      <option key={p.id} value={p.id}>
+                        {p.name} — {formatPrice(p.basePrice)}/mes
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {selectedPlan && (
+                <div className="plan-preview">
+                  <div className="plan-preview-header">
+                    <h3>{selectedPlan.name}</h3>
+                    <span className="plan-preview-price">{formatPrice(selectedPlan.basePrice)}/mes</span>
+                  </div>
+                  <p className="plan-preview-desc">{selectedPlan.description}</p>
+                  <div className="plan-preview-stats">
+                    <div className="plan-preview-stat">
+                      <span className="stat-label">Dependientes incluidos</span>
+                      <span className="stat-value">{selectedPlan.includedDependents}</span>
+                    </div>
+                    <div className="plan-preview-stat">
+                      <span className="stat-label">Costo dependiente extra</span>
+                      <span className="stat-value">{formatPrice(selectedPlan.extraDependentPrice)}</span>
+                    </div>
+                  </div>
+                  {selectedPlan.benefits.length > 0 && (
+                    <div className="plan-preview-benefits">
+                      <span className="stat-label">Beneficios incluidos:</span>
+                      <ul>
+                        {selectedPlan.benefits.map((b, i) => (
+                          <li key={i}><CheckIcon /> {b}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </form>
         </div>
       </div>
@@ -257,4 +338,10 @@ function UserIcon() {
 }
 function AffiliateIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>;
+}
+function PlanIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>;
+}
+function CheckIcon() {
+  return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
 }

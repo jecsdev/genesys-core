@@ -127,3 +127,13 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+.badge-plan {
+  background: #fffbeb;
+  color: #f0a500;
+}
+
+.amount-cell {
+  font-weight: 700;
+  color: #111827;
+}

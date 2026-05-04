@@ -1,57 +1,77 @@
-.name-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.plan-preview {
+  margin-top: 16px;
+  padding: 20px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
 }
 
-.form-select {
-  padding: 10px 14px;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #111827;
-  font-family: inherit;
-  outline: none;
-  background: #ffffff;
-  cursor: pointer;
-  transition: all 0.2s;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
-}
-
-.form-select:focus {
-  border-color: #f0a500;
-  box-shadow: 0 0 0 3px rgba(240,165,0,0.1);
-}
-
-.auto-field {
-  position: relative;
+.plan-preview-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
-.auto-field input {
-  width: 100%;
-  padding-right: 60px;
-}
-
-.auto-badge {
-  position: absolute;
-  right: 10px;
-  background: #10b981;
-  color: white;
-  font-size: 10px;
+.plan-preview-header h3 {
+  font-size: 16px;
   font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
+  color: #111827;
 }
 
-.form-section-subtitle {
+.plan-preview-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: #f0a500;
+}
+
+.plan-preview-desc {
   font-size: 13px;
   color: #6b7280;
-  margin-top: 2px;
+  margin-bottom: 16px;
+}
+
+.plan-preview-stats {
+  display: flex;
+  gap: 24px;
+  padding: 12px 0;
+  border-top: 1px solid #fde68a;
+  border-bottom: 1px solid #fde68a;
+  margin-bottom: 12px;
+}
+
+.plan-preview-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.plan-preview-benefits ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.plan-preview-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #374151;
 }
