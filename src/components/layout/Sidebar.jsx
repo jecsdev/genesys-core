@@ -61,7 +61,7 @@ export default function Sidebar() {
             <path d="M9 12l2 2 4-4" />
           </svg>
         </div>
-        <span className="sidebar-brand-name">Afiliaciones</span>
+        <span className="sidebar-brand-name">Genesys Core</span>
       </div>
 
       {/* Nav */}

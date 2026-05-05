@@ -5,19 +5,21 @@ const API_URL = 'https://localhost:44312/api';
 const getAuthHeader = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    responseType: 'blob'
   }
 });
 
+const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
 const downloadFile = (data, filename) => {
-  const url = window.URL.createObjectURL(new Blob([data]));
+  const url = window.URL.createObjectURL(new Blob([data], { type: XLSX_MIME }));
   const link = document.createElement('a');
+  link.style.display = 'none';
   link.href = url;
   link.setAttribute('download', filename);
   document.body.appendChild(link);
   link.click();
   link.remove();
-  window.URL.revokeObjectURL(url);
+  setTimeout(() => window.URL.revokeObjectURL(url), 100);
 };
 
 export const downloadCompaniesReport = async () => {
@@ -50,4 +52,28 @@ export const downloadAffiliatesByCompanyReport = async () => {
     responseType: 'blob'
   });
   downloadFile(res.data, `titulares_por_empresa_${new Date().toISOString().slice(0,10)}.xlsx`);
+};
+
+export const downloadPaymentsReport = async () => {
+  const res = await axios.get(`${API_URL}/report/payments`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    responseType: 'blob'
+  });
+  downloadFile(res.data, `pagos_${new Date().toISOString().slice(0,10)}.xlsx`);
+};
+
+export const downloadPaymentsByStatusReport = async () => {
+  const res = await axios.get(`${API_URL}/report/payments-by-status`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    responseType: 'blob'
+  });
+  downloadFile(res.data, `pagos_por_estado_${new Date().toISOString().slice(0,10)}.xlsx`);
+};
+
+export const downloadPaymentsByCompanyReport = async () => {
+  const res = await axios.get(`${API_URL}/report/payments-by-company`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    responseType: 'blob'
+  });
+  downloadFile(res.data, `pagos_por_empresa_${new Date().toISOString().slice(0,10)}.xlsx`);
 };

@@ -5,6 +5,9 @@ import {
   downloadAffiliatesReport,
   downloadDependentsReport,
   downloadAffiliatesByCompanyReport,
+  downloadPaymentsReport,
+  downloadPaymentsByStatusReport,
+  downloadPaymentsByCompanyReport,
 } from '../api/reportApi';
 import { usePermissions } from '../hooks/usePermissions';
 import './ReportesPage.css';
@@ -37,6 +40,30 @@ const REPORTS = [
     description: 'Detalle agrupado que muestra la cantidad y detalle de titulares activos por cada empresa.',
     icon: <ChartIcon />,
     fn: downloadAffiliatesByCompanyReport,
+  },
+];
+
+const PAYMENT_REPORTS = [
+  {
+    id: 'payments',
+    title: 'Listado de Pagos',
+    description: 'Relación completa de todos los pagos registrados con monto, fecha, método de pago, referencia y estado.',
+    icon: <MoneyIcon />,
+    fn: downloadPaymentsReport,
+  },
+  {
+    id: 'payments-by-status',
+    title: 'Pagos por Estado',
+    description: 'Resumen agrupado de pagos según su estado: pagados, pendientes y vencidos, con totales por categoría.',
+    icon: <StatusIcon />,
+    fn: downloadPaymentsByStatusReport,
+  },
+  {
+    id: 'payments-by-company',
+    title: 'Pagos por Empresa',
+    description: 'Detalle de pagos agrupados por empresa, mostrando montos acumulados y cantidad de transacciones.',
+    icon: <ChartIcon />,
+    fn: downloadPaymentsByCompanyReport,
   },
 ];
 
@@ -110,6 +137,46 @@ export default function ReportesPage() {
               </div>
             ))}
           </div>
+          <br/>
+          <div className="reports-section">
+            <h2 className="reports-section-title">Reportes de Pagos</h2>
+            <p className="reports-section-subtitle">
+              Exporta y analiza la información de pagos efectuados, agrupados por estado o empresa.
+            </p>
+          </div>
+
+          <div className="reports-grid">
+            {PAYMENT_REPORTS.map((report) => (
+              <div key={report.id} className="report-card">
+                <div className="report-icon">{report.icon}</div>
+                <h3 className="report-title">{report.title}</h3>
+                <p className="report-description">{report.description}</p>
+                {canDownload('reportes') && (
+                  <div className="report-actions">
+                    <button
+                      className={`btn-download ${success[report.id] ? 'success' : ''}`}
+                      onClick={() => handleDownload(report)}
+                      disabled={loading[report.id]}
+                    >
+                      {loading[report.id] ? (
+                        <>
+                          <SpinnerIcon /> Generando...
+                        </>
+                      ) : success[report.id] ? (
+                        <>
+                          <CheckIcon /> Descargado
+                        </>
+                      ) : (
+                        <>
+                          <DownloadIcon /> Descargar Excel
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -137,4 +204,10 @@ function SpinnerIcon() {
 }
 function CheckIcon() {
   return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
+}
+function MoneyIcon() {
+  return <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>;
+}
+function StatusIcon() {
+  return <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
 }
