@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../components/layout/Sidebar';
-import { createPayment, getPayments, updatePayment } from '../api/paymentApi';
+import { createPayment, getPaymentById, updatePayment } from '../api/paymentApi';
 import { getAffiliates } from '../api/affiliateApi';
 import './NuevoPagoPage.css';
 
@@ -29,7 +29,7 @@ export default function NuevoPagoPage() {
   useEffect(() => {
     getAffiliates().then(res => setAffiliates(res.data));
     if (isEditing) {
-      getPayments(id).then(res => {
+      getPaymentById(id).then(res => {
         const p = res.data;
         setForm({
           affiliateId: p.affiliateId,

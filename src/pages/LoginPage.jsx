@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { loginRequest } from '../api/authApi';
 import './LoginPage.css';
+import { getCopyright } from '../utils/branding';
+import logo from '../assets/logo.png';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -12,31 +14,27 @@ export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
-  setLoading(true);
-  try {
-    const res = await loginRequest({ username, password });
-    login(res.data.token);
-    navigate('/dashboard');
-  } catch {
-    setError('Usuario o contraseña incorrectos. Por favor intenta nuevamente.');
-  } finally {
-    setLoading(false);
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      const res = await loginRequest({ username, password });
+      login(res.data.token);
+      navigate('/dashboard');
+    } catch {
+      setError('Usuario o contraseña incorrectos. Por favor intenta nuevamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-bg">
       <div className="login-card">
         {/* Icono */}
-        <div className="login-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-            stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            <path d="M9 12l2 2 4-4" />
-          </svg>
+        <div className="login-logo">
+          <img src={logo} alt="Luz y Esperanza" />
         </div>
 
         <h1 className="login-title">Bienvenido de nuevo</h1>
@@ -108,9 +106,7 @@ const handleSubmit = async (e) => {
           </button>
         </form>
 
-        <p className="login-footer">
-          © 2023 Sistema de Afiliaciones. Todos los derechos reservados.
-        </p>
+        <p className="login-footer">{getCopyright()}</p>
       </div>
     </div>
   );

@@ -11,6 +11,9 @@ const getAuthHeader = () => ({
 export const getPayments = () =>
   axios.get(`${API_URL}/payment`, getAuthHeader());
 
+export const getPaymentById = (id) =>
+  axios.get(`${API_URL}/payment/${id}`, getAuthHeader());
+
 export const getPaymentsByAffiliate = (affiliateId) =>
   axios.get(`${API_URL}/payment/affiliate/${affiliateId}`, getAuthHeader());
 

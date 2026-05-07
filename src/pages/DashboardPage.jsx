@@ -5,6 +5,18 @@ import { getDashboardStats } from '../api/dashboardApi';
 import { usePermissions } from '../hooks/usePermissions';
 import './DashboardPage.css';
 
+const formatCurrency = (amount) =>
+  new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP' }).format(amount ?? 0);
+
+const formatPaymentDate = (dateStr) =>
+  new Date(dateStr).toLocaleDateString('es-DO');
+
+const PAYMENT_STATUS = {
+  Paid:    { label: 'Pagado',    cls: 'badge-paid' },
+  Pending: { label: 'Pendiente', cls: 'badge-pending' },
+  Overdue: { label: 'Vencido',   cls: 'badge-overdue' },
+};
+
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -121,6 +133,34 @@ export default function DashboardPage() {
                 ))}
               </div>
 
+              {/* Financial Summary */}
+              <div className="finance-grid">
+                <div className="finance-card finance-card--green">
+                  <div className="finance-icon finance-icon--green"><RevenueIcon /></div>
+                  <div className="finance-body">
+                    <span className="finance-label">Ingresos del Mes</span>
+                    <span className="finance-amount finance-amount--green">{formatCurrency(stats?.totalRevenueThisMonth)}</span>
+                    <span className="finance-count">{stats?.paidPaymentsCount ?? 0} pagos realizados</span>
+                  </div>
+                </div>
+                <div className="finance-card finance-card--yellow">
+                  <div className="finance-icon finance-icon--yellow"><PendingPayIcon /></div>
+                  <div className="finance-body">
+                    <span className="finance-label">Pagos Pendientes</span>
+                    <span className="finance-amount finance-amount--yellow">{formatCurrency(stats?.totalPendingAmount)}</span>
+                    <span className="finance-count">{stats?.pendingPaymentsCount ?? 0} pendientes</span>
+                  </div>
+                </div>
+                <div className="finance-card finance-card--red">
+                  <div className="finance-icon finance-icon--red"><OverduePayIcon /></div>
+                  <div className="finance-body">
+                    <span className="finance-label">Pagos Vencidos</span>
+                    <span className="finance-amount finance-amount--red">{formatCurrency(stats?.totalOverdueAmount)}</span>
+                    <span className="finance-count">{stats?.overduePaymentsCount ?? 0} vencidos</span>
+                  </div>
+                </div>
+              </div>
+
               {/* Recent Table */}
               <div className="recent-panel">
                 <div className="recent-header">
@@ -177,6 +217,59 @@ export default function DashboardPage() {
                   </div>
                 )}
               </div>
+
+              {/* Recent Payments */}
+              <div className="recent-panel" style={{ marginTop: 24 }}>
+                <div className="recent-header">
+                  <span className="recent-title">Pagos Recientes</span>
+                  <button className="recent-ver-btn" onClick={() => navigate('/pagos')}>
+                    Ver todos →
+                  </button>
+                </div>
+                {!stats?.recentPayments?.length ? (
+                  <div className="empty-state">No hay pagos registrados aún.</div>
+                ) : (
+                  <div className="table-wrap">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>AFILIADO</th>
+                          <th>MONTO</th>
+                          <th>MÉTODO</th>
+                          <th>FECHA</th>
+                          <th>ESTADO</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {stats.recentPayments.map((p) => {
+                          const statusInfo = PAYMENT_STATUS[p.status] ?? { label: p.status, cls: 'badge-pending' };
+                          return (
+                            <tr key={p.id}>
+                              <td>
+                                <div className="affiliate-cell">
+                                  <div className="affiliate-avatar" style={{ background: getColor(p.affiliateName) }}>
+                                    {getInitials(p.affiliateName)}
+                                  </div>
+                                  <div>
+                                    <div className="affiliate-name">{p.affiliateName}</div>
+                                    <div className="affiliate-time">#{p.affiliateNumber}</div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="payment-amount">{formatCurrency(p.amount)}</td>
+                              <td>{p.paymentMethod}</td>
+                              <td>{formatPaymentDate(p.paymentDate)}</td>
+                              <td>
+                                <span className={`badge ${statusInfo.cls}`}>{statusInfo.label}</span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -200,4 +293,13 @@ function BuildingStatIcon() {
 }
 function ClockStatIcon() {
   return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+}
+function RevenueIcon() {
+  return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>;
+}
+function PendingPayIcon() {
+  return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0a500" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+}
+function OverduePayIcon() {
+  return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>;
 }

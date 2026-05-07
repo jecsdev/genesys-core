@@ -68,8 +68,6 @@ export default function DependientesPage() {
   const AVATAR_COLORS = ['#3b82f6', '#f0a500', '#10b981', '#8b5cf6', '#ef4444', '#06b6d4'];
   const getColor = (id) => AVATAR_COLORS[id % AVATAR_COLORS.length];
 
-  const RELATIONSHIPS = ['Hijo/a', 'Cónyuge', 'Padre/Madre', 'Hermano/a', 'Otro'];
-
   return (
     <div className="app-layout">
       <Sidebar />
@@ -229,9 +227,6 @@ export default function DependientesPage() {
 // ── Icons ──
 function SearchIcon() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
-}
-function DownloadIcon() {
-  return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
 }
 function PlusIcon() {
   return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;

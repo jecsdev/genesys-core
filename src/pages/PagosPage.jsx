@@ -10,8 +10,6 @@ const STATUS_INFO = {
   Overdue: { label: 'Vencido', color: '#ef4444', bg: '#fef2f2' },
 };
 
-const PAYMENT_METHODS = ['Efectivo', 'Transferencia', 'Tarjeta', 'Cheque'];
-
 export default function PagosPage() {
   const [payments, setPayments] = useState([]);
   const [filtered, setFiltered] = useState([]);
