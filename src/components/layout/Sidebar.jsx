@@ -1,9 +1,10 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { usePermissions } from '../../hooks/usePermissions';
 import './Sidebar.css';
 import logo from '../../assets/logo.png';
-
+import {BRANDING} from '../../utils/branding';
 const NAV_ITEMS = [
   {
     label: 'MENÚ',
@@ -35,6 +36,12 @@ export default function Sidebar() {
   const { user, logout } = useAuth();
   const { canView } = usePermissions();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   const handleLogout = () => {
     logout();
@@ -52,13 +59,25 @@ export default function Sidebar() {
   const roleLabel = ROLE_LABELS[role] || role;
 
   return (
-    <aside className="sidebar">
+    <>
+      <button className="sidebar-hamburger" onClick={() => setMobileOpen(true)} aria-label="Abrir menú">
+        <HamburgerIcon />
+      </button>
+
+      {mobileOpen && (
+        <div className="sidebar-overlay" onClick={() => setMobileOpen(false)} />
+      )}
+
+      <aside className={`sidebar${mobileOpen ? ' sidebar--open' : ''}`}>
       {/* Brand */}
       <div className="sidebar-brand">
         <div className="sidebar-logo">
           <img src={logo} alt="Luz y Esperanza" />
         </div>
-        <span className="sidebar-brand-name">Genesys Core</span>
+        <span className="sidebar-brand-name">{BRANDING.clientName}</span>
+        <button className="sidebar-close-btn" onClick={() => setMobileOpen(false)} aria-label="Cerrar menú">
+          <CloseIcon />
+        </button>
       </div>
 
       {/* Nav */}
@@ -104,6 +123,7 @@ export default function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }
 
@@ -134,4 +154,10 @@ function PlanIcon() {
 }
 function PaymentIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2" /><line x1="1" y1="10" x2="23" y2="10" /></svg>;
+}
+function HamburgerIcon() {
+  return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+}
+function CloseIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
 }

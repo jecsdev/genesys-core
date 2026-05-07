@@ -14,3 +14,54 @@ code {
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', 'Segoe UI', sans-serif; }
+
+/* ── Responsive layout base ── */
+@media (max-width: 768px) {
+  /* Sidebar is position: fixed on mobile, so app-main takes full width */
+  .app-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Shift headers right to leave room for the hamburger button */
+  .page-header {
+    padding: 14px 16px 14px 64px !important;
+  }
+
+  .page-title {
+    font-size: 18px !important;
+  }
+
+  .page-content {
+    padding: 16px !important;
+  }
+
+  .dashboard-content {
+    padding: 16px !important;
+  }
+
+  /* Filters stack vertically */
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .search-box,
+  .search-box input {
+    width: 100% !important;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  /* Tables scroll horizontally */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 560px;
+  }
+}

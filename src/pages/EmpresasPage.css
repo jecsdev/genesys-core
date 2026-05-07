@@ -284,3 +284,55 @@ tr:hover td { background: #fafafa; }
   color: #9ca3af;
   font-size: 14px;
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 14px 16px 14px 64px;
+    gap: 10px;
+  }
+
+  .page-content {
+    padding: 16px;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-box,
+  .search-box input {
+    width: 100%;
+  }
+
+  .filter-select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .tabs-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .tabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .page-header-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-primary-action,
+  .btn-export {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

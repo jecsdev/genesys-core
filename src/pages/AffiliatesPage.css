@@ -137,3 +137,23 @@
   font-weight: 700;
   color: #111827;
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .filters-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box,
+  .search-box input,
+  .filter-select {
+    width: 100%;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+}

@@ -82,3 +82,36 @@
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(240,165,0,0.3);
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 14px 16px 14px 64px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .topbar-search-btn {
+    min-width: unset;
+    padding: 9px 12px;
+  }
+
+  .topbar-search-btn span {
+    display: none;
+  }
+
+  .topbar-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .topbar-action-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
