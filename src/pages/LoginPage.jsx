@@ -37,7 +37,7 @@ export default function LoginPage() {
           <img src={logo} alt="Luz y Esperanza" />
         </div>
 
-        <h1 className="login-title">Bienvenido de nuevo</h1>
+        <h1 className="login-title">Bienvenido</h1>
         <p className="login-subtitle">Ingresa tus credenciales para acceder al sistema</p>
 
         {/* Error */}
