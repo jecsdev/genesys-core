@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:44312/api';
-
+const API_URL = process.env.REACT_APP_API_URL || 'https://localhost:44312/api';
 const getAuthHeader = () => ({
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`
