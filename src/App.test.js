@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('shows the service suspension notice', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /el período de pruebas ha finalizado/i })).toBeInTheDocument();
+  expect(screen.getByText(/contacte a su proveedor/i)).toBeInTheDocument();
 });

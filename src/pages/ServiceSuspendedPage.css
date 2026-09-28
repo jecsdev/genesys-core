@@ -1,0 +1,63 @@
+.suspension-page {
+  align-items: center;
+  background: linear-gradient(160deg, #0d1b35 0%, #0a1628 50%, #0d2347 100%);
+  display: flex;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.suspension-card {
+  align-items: center;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  padding: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.suspension-logo { height: 112px; margin-bottom: 20px; object-fit: contain; width: 112px; }
+
+.suspension-icon {
+  align-items: center;
+  background: #fff7e6;
+  border-radius: 50%;
+  color: #d97706;
+  display: flex;
+  height: 52px;
+  justify-content: center;
+  margin-bottom: 16px;
+  width: 52px;
+}
+
+.suspension-icon svg { height: 28px; width: 28px; }
+
+.suspension-label {
+  color: #b45309;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.suspension-card h1 { color: #111827; font-size: 27px; line-height: 1.2; margin-bottom: 16px; }
+
+.suspension-message,
+.suspension-contact { color: #4b5563; font-size: 15px; line-height: 1.6; }
+
+.suspension-contact { color: #374151; font-weight: 600; margin-top: 14px; }
+
+.suspension-divider { background: #e5e7eb; height: 1px; margin: 28px 0 18px; width: 100%; }
+
+.suspension-footer { color: #9ca3af; font-size: 12px; }
+
+@media (max-width: 480px) {
+  .suspension-card { padding: 32px 24px; }
+  .suspension-card h1 { font-size: 23px; }
+}
